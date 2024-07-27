@@ -1,4 +1,4 @@
-## Task : Verify the instructions in riscv compiler for sum1ton.c code
+## ASIC LAB 2 - Task : Verify the instructions in riscv compiler for sum1ton.c code
 **Step 1:** Verify the output of the C program first using gcc compiler and then using spike simulator for riscv. Output must be same in both cases.
 
 ![image](https://github.com/user-attachments/assets/88ef0353-aec4-44af-91b6-c6edc24f3026)
