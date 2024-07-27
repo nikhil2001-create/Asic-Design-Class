@@ -1,4 +1,4 @@
-## TASK 1: Compile a C program of sum from 1 to n natural numbers using gcc compiler. ##
+## ASIC Lab 1 - TASK 1: Compile a C program of sum from 1 to n natural numbers using gcc compiler. ##
 
 Step 1: Create a C file named sum1ton.c using leafpad editor.
 
