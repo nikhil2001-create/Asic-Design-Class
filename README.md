@@ -48,6 +48,7 @@ No. of instructions = (100dc - 100b0)/4 = 44/4 = 11 instructions
 
 ![Lab2(3)](https://github.com/user-attachments/assets/6cc649f3-a33d-46b1-877e-97c5eee4d17f)
 
+
 ## ASIC Lab 3: ##
 ## Task 1: "Identify various RISC-V instruction type (R, I, S, B, U, J) and exact 32-bit instruction code in the instruction type format for below RISC-V instructions. 
 
@@ -66,6 +67,48 @@ No. of instructions = (100dc - 100b0)/4 = 44/4 = 11 instructions
 | BEQ r0, r0, 15    | B    | 0x00F08063  | 0000000 01111 00000 000 00000 1100011 |
 | LW r13, r11, 2    | I    | 0x0025A293  | 000000000010 01011 010 01101 0000011  |
 | SLL r15, r11, r2  | R    | 0x0025D193  | 0000000 00010 01011 001 01111 0110011 |
+
+## Task 2 : By making use of RISCV Core: Verilog Netlist and Testbench, perform an experiment of Functional Simulation and observe the waveforms  ##
+
+Use following instructions in the terminal for simulation:
+![image](https://github.com/user-attachments/assets/7ee8f475-a70e-4171-ab2d-fdc4d819fb90)
+
+``` Instruction 1: ADD R6,R2,R1 ```
+![image](https://github.com/user-attachments/assets/c6ef8348-72dc-462f-8f08-d9043875bed5)
+
+``` Instruction 2: SUB R7, R1, R2 ```
+![image](https://github.com/user-attachments/assets/87109f12-8144-4675-b669-de3f78c9a71a)
+
+``` Instruction 3: AND R8, R1, R3 ```
+![image](https://github.com/user-attachments/assets/1a6afd06-3680-4a07-9338-a555472fb04e)
+
+``` Instruction 4: OR R9, R2, R5 ```
+![image](https://github.com/user-attachments/assets/faf38e74-2921-40be-8beb-0cecdd79bea0)
+
+``` Instruction 5: XOR R10, R1, R4 ```
+![image](https://github.com/user-attachments/assets/b8f85e68-83a5-417c-8a70-7df205d081f4)
+
+``` Instruction 6: SLT R1, R2, R4 ```
+![image](https://github.com/user-attachments/assets/a66c57d4-c6f5-4c2a-aa42-e0b04ebaa4a2)
+
+``` Instruction 7: ADDI R12, R4, 5 ```
+![image](https://github.com/user-attachments/assets/d6652985-275d-484f-8ea2-5971b5032dd7)
+
+``` Instruction 8: BEQ R0, R0, 15 ```
+![image](https://github.com/user-attachments/assets/2d6da0d3-dc0b-4902-9e51-a269f8425dc6)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
