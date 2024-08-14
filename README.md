@@ -1,3 +1,7 @@
+<details>
+<summary>Lab 1 (16/07/24)</summary>
+<br>
+
 ## ASIC Lab 1 - TASK 1: Compile a C program of sum from 1 to n natural numbers using gcc compiler. ##
 
 Step 1: Create a C file named sum1ton.c using leafpad editor.
@@ -25,6 +29,11 @@ Step 3: Now compile using -Ofast:
 
 No. of instructions = (100dc - 100b0)/4 = 44/4 = 11 instructions
 
+</details>
+
+<details>
+<summary>Lab 2 (19/07/24)</summary>
+<br>
 ## ASIC Lab 2 - Task : Verify the instructions in riscv compiler for sum1ton.c code
 **Step 1:** Verify the output of the C program first using gcc compiler and then using spike simulator for riscv. Output must be same in both cases.
 
@@ -47,8 +56,11 @@ No. of instructions = (100dc - 100b0)/4 = 44/4 = 11 instructions
 **Step 6:** Using calculator ensure that the difference between initial and final contents of the sp register should be as per the intruction set.
 
 ![Lab2(3)](https://github.com/user-attachments/assets/6cc649f3-a33d-46b1-877e-97c5eee4d17f)
+</details>
 
-
+<details>
+<summary>Lab 3 (22/07/24)</summary>
+<br>
 ## ASIC Lab 3: ##
 ## Task 1: "Identify various RISC-V instruction type (R, I, S, B, U, J) and exact 32-bit instruction code in the instruction type format for below RISC-V instructions. 
 
@@ -118,7 +130,79 @@ There are some differences between RISCV ISA and Hardcoded ISA.So for the above 
 
 ``` Instruction 8: BEQ R0,R0,15 ```
 ![image](https://github.com/user-attachments/assets/e71570f9-5983-43d7-b393-24ce6e1ad25d)
+</details>
 
+<details>
+<summary>Lab 4 (13/08/24)</summary>
+<br>
+  
+## ASIC Lab 4: ##
+## Task: Compile a C application with GCC and RISC-V GCC ##
+### Application : 4-to-2 priority encoder ###
+**Description :** Simulates a priority encoder that encodes the highest-priority active input.In a 4-to-2 priority encoder, there are 4 input lines and 2 output lines. The priority is assigned such that if multiple inputs are active, the encoder will output the binary code corresponding to the highest-priority active input. 
+
+## Step 1: C Program ##
+```c
+#include <stdio.h>
+
+// Function to simulate a 4-to-2 priority encoder
+void priorityEncoder(int inputs[4], int *out1, int *out0) {
+    // Check for the highest priority active input
+    if (inputs[3] == 1) {
+        *out1 = 1;
+        *out0 = 1;
+    } else if (inputs[2] == 1) {
+        *out1 = 1;
+        *out0 = 0;
+    } else if (inputs[1] == 1) {
+        *out1 = 0;
+        *out0 = 1;
+    } else if (inputs[0] == 1) {
+        *out1 = 0;
+        *out0 = 0;
+    } else {
+        *out1 = -1; // Invalid output (no active input)
+        *out0 = -1;
+    }
+}
+
+int main() {
+    int inputs[4];
+    int out1, out0;
+
+    // Get input values from the user
+    printf("Enter the 4 inputs (0 or 1) for the priority encoder:\n");
+    for (int i = 0; i < 4; i++) {
+        printf("Input %d: ", i);
+        scanf("%d", &inputs[i]);
+        if (inputs[i] != 0 && inputs[i] != 1) {
+            printf("Invalid input. Only 0 or 1 are allowed.\n");
+            return 1;
+        }
+    }
+
+    // Simulate the priority encoder
+    priorityEncoder(inputs, &out1, &out0);
+
+    // Display the results
+    if (out1 != -1 && out0 != -1) {
+        printf("Priority Encoder Output: %d%d\n", out1, out0);
+    } else {
+        printf("No active input.\n");
+    }
+
+    return 0;
+}
+```
+
+## Step 2: Compile the program using gcc compiler ##
+![image](https://github.com/user-attachments/assets/cd6e8496-a398-44e2-9514-449e65f39d37)
+
+## Step 3: Compile the program using risc-v compiler ##
+![image](https://github.com/user-attachments/assets/a1dcd445-5961-4027-8d6a-ebf1d3a7a48b)
+
+**Observation:** Output matches for both gcc and risc-v compiler.
+</details>
 
 
 
