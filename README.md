@@ -201,6 +201,8 @@ int main() {
 ## Step 3: Compile the program using risc-v compiler ##
 ![image](https://github.com/user-attachments/assets/a1dcd445-5961-4027-8d6a-ebf1d3a7a48b)
 
+**Output result :** Priority Encoder Output: 10 (Because Input 2 has the highest priority and is active)
+
 **Observation:** Output matches for both gcc and risc-v compiler.
 </details>
 
