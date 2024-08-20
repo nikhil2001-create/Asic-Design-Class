@@ -206,7 +206,57 @@ int main() {
 **Observation:** Output matches for both gcc and risc-v compiler.
 </details>
 
+<details>
+<summary>Lab 5 (15/08/24)</summary>
+<br>
 
+# ASIC Lab 5: #
+**TL Verilog:** Transaction Level Verilog is a higher-level abstraction of Verilog that allows designers to write hardware descriptions with fewer lines of code. It's used to define hardware designs at a more abstract level than traditional Verilog, making the design and simulation process more efficient.
+
+**Makerchip:** The Makerchip platform is an online integrated development environment (IDE) designed for developing, simulating, and verifying digital hardware designs, particularly in the context of RISC-V processors and open-source hardware.
+
+# Combinational Circuit Implementations: 
+
+## 1.Inverter:
+Implementation of a simple inverter using TL Verilog:
+![Inverter](https://github.com/user-attachments/assets/7ba81cf1-b0f5-46f8-aa63-af67193868e6)
+
+## 2.NOR Gate:
+Implementation of a NOR Gate using TL Verilog:
+![NOR](https://github.com/user-attachments/assets/77939606-86bc-430a-9d79-168ab10a26db)
+
+## 3.MUX 2to1 using vectors:
+Implementation of a 2*1 MUX using TL Verilog:
+![MUX 2to1](https://github.com/user-attachments/assets/fda1f0f3-3ecb-4d64-a455-3ebbf7e044cb)
+
+## 4.Combinational Calculator:
+The combinational calculator is implemented using a 4*1 MUX.The calculator is implemented to perform basic operations like addition, subtraction, multiplication & division. 
+
+TL code & waveform for the combinational calculator:
+
+![Comb  Calc](https://github.com/user-attachments/assets/7a0d7fcc-0a7b-47d7-bf2d-e507036c714f)
+
+# Sequential Circuit Implementations:
+
+## 1.Fibonacci Seq:
+The Fibonacci sequence is a series of numbers where each number (after the first two) is the sum of the two preceding ones. The sequence typically starts with 0 and 1, and then each subsequent number is the sum of the previous two.
+
+![Fibonacci](https://github.com/user-attachments/assets/a7019b56-45b7-4a0a-bf20-fbe269bfd6dd)
+
+## 2.Sequential Calculator:
+A sequential calculator is a type of calculator or computational process that performs operations in a step-by-step manner, where each operation is dependent on the previous one. This means that the result of one calculation becomes the input for the next. 
+
+Sequential Calculator can be implemented using a 4*1 MUX , a flip flop to store the current $out[31:0] data. A reset signal is added such that the calculator gives an output of 32'b0 whenever the reset is set to high.
+
+![image](https://github.com/user-attachments/assets/64f42bf0-6af7-43c7-869a-33c4650d7797)
+
+
+
+
+
+
+
+</details>
 
 
 
