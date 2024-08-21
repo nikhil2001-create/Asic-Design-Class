@@ -210,7 +210,10 @@ int main() {
 <summary>Lab 5 (15/08/24)</summary>
 <br>
 
-# ASIC Lab 5: #
+<details>
+<summary>Digital Logic with TL Verilog & Makerchip:</summary>
+<br>
+
 **TL Verilog:** Transaction Level Verilog is a higher-level abstraction of Verilog that allows designers to write hardware descriptions with fewer lines of code. It's used to define hardware designs at a more abstract level than traditional Verilog, making the design and simulation process more efficient.
 
 **Makerchip:** The Makerchip platform is an online integrated development environment (IDE) designed for developing, simulating, and verifying digital hardware designs, particularly in the context of RISC-V processors and open-source hardware.
@@ -225,14 +228,38 @@ Implementation of a simple inverter using TL Verilog:
 Implementation of a NOR Gate using TL Verilog:
 ![NOR](https://github.com/user-attachments/assets/77939606-86bc-430a-9d79-168ab10a26db)
 
-## 3.MUX 2to1 using vectors:
+## 3.MUX 2to1 using 8 bit vectors:
 Implementation of a 2*1 MUX using TL Verilog:
 ![MUX 2to1](https://github.com/user-attachments/assets/fda1f0f3-3ecb-4d64-a455-3ebbf7e044cb)
 
 ## 4.Combinational Calculator:
 The combinational calculator is implemented using a 4*1 MUX.The calculator is implemented to perform basic operations like addition, subtraction, multiplication & division. 
 
-TL code & waveform for the combinational calculator:
+TL Verilog code & waveform for the combinational calculator:
+```
+\m5_TLV_version 1d: tl-x.org
+\m5
+
+\SV
+    m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+   $reset = *reset;
+   $clk_nik = *clk;
+   // $op[1:0] = *cnt[1:0];
+   $val1[31:0] = $rand1[3:0];
+   $val2[31:0] = $rand2[3:0];
+   
+   $add[31:0] =  $val1[31:0] +  $val2[31:0];
+   $min[31:0] =  $val1[31:0] -  $val2[31:0];
+   $mul[31:0] =  $val1[31:0] *  $val2[31:0];
+   $div[31:0] =  $val1[31:0] /  $val2[31:0];
+   
+   $out[31:0] = $sel[1] ? ($sel[0] ? $div[31:0] : $mul[31:0]) : ($sel[0] ? $min[31:0] : $add[31:0]);
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+```
 
 ![Comb  Calc](https://github.com/user-attachments/assets/7a0d7fcc-0a7b-47d7-bf2d-e507036c714f)
 
@@ -248,16 +275,117 @@ A sequential calculator is a type of calculator or computational process that pe
 
 Sequential Calculator can be implemented using a 4*1 MUX , a flip flop to store the current $out[31:0] data. A reset signal is added such that the calculator gives an output of 32'b0 whenever the reset is set to high.
 
+TL Verilog code & waveform:
+```
+\m5_TLV_version 1d: tl-x.org
+\m5
+
+\SV
+    m5_makerchip_module   // (Expanded in Nav-TLV pane.)
+\TLV
+   $reset = *reset;
+   $clk_nik = *clk;
+   // $op[1:0] = *cnt[1:0];
+   $val1[31:0] = $rand1[3:0];
+   $val2[31:0] = $rand2[3:0];
+   $val1[31:0] = >>1$out[31:0];
+   
+   $add[31:0] =  $val1[31:0] +  $val2[31:0];
+   $min[31:0] =  $val1[31:0] -  $val2[31:0];
+   $mul[31:0] =  $val1[31:0] *  $val2[31:0];
+   $div[31:0] =  $val1[31:0] /  $val2[31:0];
+   
+   $out[31:0] = $reset ? 32'b0 : ($sel[1] ? ($sel[0] ? $div[31:0] : $mul[31:0]) : ($sel[0] ? $min[31:0] : $add[31:0]));
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+```
+
 ![image](https://github.com/user-attachments/assets/64f42bf0-6af7-43c7-869a-33c4650d7797)
 
+# Pipelined Logic:
+Pipelined logic refers to a design technique used in digital circuits, especially in microprocessors and other hardware components, to improve performance by processing multiple instructions or data simultaneously in different stages.In a pipelined circuit, the process is divided into several stages. Each stage performs a specific part of the overall task.
 
+## Cycle Calculator:
 
+![image](https://github.com/user-attachments/assets/06ad6661-ba79-4fd9-a7bb-37148caa5d74)
 
+TL Verilog code & waveform:
+```
+ $reset = *reset;
+ $clk_kar = *clk;
+   
+   |calc
+      @1
+         $val1[31:0] = $rand1[3:0];
+         $val2[31:0] = >>1$out;
 
+         $sum[31:0] = $val1 + $val2;
+         $diff[31:0] = $val1 - $val2;
+         $prod[31:0] = $val1 * $val2;
+         $quot[31:0] = $val1 / $val2;
 
+         $cnt[31:0] = $reset ? 0 : >>1$cnt + 1;
+      
+      @2
+         $out[31:0] = $reset ? 0 : ($op[1] ? ($op[0] ? $quot[31:0] : $prod[31:0])
+                        : ($op[0] ? $diff[31:0] : $sum[31:0]));
+   *passed = *cyc_cnt > 40;
+   *failed = 1'b0;
+\SV
+   endmodule
+```
 
+![image](https://github.com/user-attachments/assets/df869356-82c0-4f32-af70-123644a37639)
+
+# Validity:
+In TL-Verilog, "validity" is a key concept used to manage the flow of data through a pipeline and to handle control logic. TL-Verilog introduces a more intuitive way of dealing with data validity compared to traditional Verilog, particularly in the context of pipeline stages. 
+```
+(* pipeline *)
+always_comb begin
+    if (stage_1_valid) begin
+        stage_2_data <= stage_1_data + 1;
+        stage_2_valid <= 1;
+    end else begin
+        stage_2_valid <= 0;
+    end
+end
+```
+## Cycle Calcultor with validity:
+```
+|calc
+      @0
+         $reset = *reset;
+         $clk_nik = *clk;
+         
+      @1
+         $val1 [31:0] = >>2$out [31:0];
+         $val2 [31:0] = $rand2[3:0];
+         
+         $valid = $reset ? 1'b0 : >>1$valid + 1'b1 ;
+         $valid_or_reset = $valid || $reset;
+         
+      ?$valid_or_reset
+         @1   
+            $sum [31:0] = $val1 + $val2;
+            $diff[31:0] = $val1 - $val2;
+            $prod[31:0] = $val1 * $val2;
+            $quot[31:0] = $val1 / $val2;
+            
+         @2   
+            $out [31:0] = $reset ? 32'b0 :
+                          ($op[1:0] == 2'b00) ? $sum :
+                          ($op[1:0] == 2'b01) ? $diff :
+                          ($op[1:0] == 2'b10) ? $prod :
+                                                $quot ;
+```
+ ![image](https://github.com/user-attachments/assets/52f6eb3b-eb1c-4aaa-8e5e-04c6fdf38e6b)
 </details>
 
+<details>
+<summary>Basic RISC-V CPU microarchitecture:</summary>
+<br>
 
 
 
