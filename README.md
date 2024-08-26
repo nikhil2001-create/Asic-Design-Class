@@ -925,7 +925,7 @@ gtkwave pre_synth_sim.vcd
 **Makerchip Waveform:**
 ![image](https://github.com/user-attachments/assets/ac34e25d-46fb-43fd-9525-c5a1dd6b1aa5)
 
-**GTKWave Waveform**
+**GTKWave Waveform:**
 ![image](https://github.com/user-attachments/assets/24c53758-d051-4157-bc47-f6f6ed5c1aa4)
 
 **Conclusion:**
