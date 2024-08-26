@@ -844,9 +844,94 @@ This code configures a simulation for a RISC-V processor to execute a program th
 </details>
 </details>
 
+<details>
+<summary>Lab 6 (22/08/24)</summary>
+<br>
 
+# Task: Converting TLV code to Verilog using Sandpiper. Use iverilog to simulate and gtkwave to view the output waveforms.
 
+The purpose of converting TLV (Transaction-Level Verilog) code to Verilog using the SandPiper compiler is to bridge the gap between high-level design and lower-level hardware description.The SandPiper compiler translates TLV code into standard Verilog, a widely-used hardware description language (HDL) that can be synthesized into actual hardware.
 
+**Step-by-Step Simulation Process:**
+
+**Step 1:** Install the following packages:
+```
+sudo apt install make python python3 python3-pip git iverilog gtkwave
+
+cd ~
+
+sudo apt-get install python3-venv
+
+python3 -m venv .venv
+
+source ~/.venv/bin/activate
+
+pip3 install pyyaml click sandpiper-saas
+```
+
+**Step 2:** Clone the Repository
+First, clone the VSDBabySoC repository into your home directory:
+```
+cd ~
+git clone https://github.com/manili/VSDBabySoC.git
+```
+
+**Step 3:** Replace the .tlv File
+Replace the existing .tlv file in the VSDBabySoC/src/module folder with your RISC-V .tlv file that you want to convert to Verilog:
+```
+cp /path/to/your/riscv_file.tlv ~/VSDBabySoC/src/module/
+```
+
+**Step 4:** Navigate to the Project Directory
+Change the working directory to VSDBabySoC:
+```
+cd VSDBabySoC
+```
+
+**Step 5:** Convert TLV to Verilog
+Use the SandPiper compiler to convert the .tlv file into a Verilog (.v) file:
+```
+sandpiper-saas -i ./src/module/*.tlv -o rvmyth.v --bestsv --noline -p verilog --outdir ./src/module/
+```
+
+**Step 6:** Create Pre-Synthesis Simulation File
+Generate the pre_synth_sim.vcd file by running:
+```
+make pre_synth_sim
+```
+
+**Step 7:** Compile and Simulate the RISC-V Design
+Compile and simulate the RISC-V design using the following command:
+```
+iverilog -o output/pre_synth_sim.out -DPRE_SYNTH_SIM src/module/testbench.v -I src/include -I src/module
+```
+
+**Step 8:** Run the Simulation
+Navigate to the output directory and run the simulation:
+```
+cd output
+./pre_synth_sim.out
+```
+
+**Step 9:** View Simulation Results with GTKWave
+Finally, open the simulation results (pre_synth_sim.vcd) using GTKWave:
+```
+gtkwave pre_synth_sim.vcd
+```
+
+**By following these steps, we will successfully convert a RISC-V .tlv file into Verilog and simulate the design using Icarus Verilog and GTKWave.**
+
+## Comparison of Output waveforms:
+**Makerchip Waveform:**
+![image](https://github.com/user-attachments/assets/ac34e25d-46fb-43fd-9525-c5a1dd6b1aa5)
+
+**GTKWave Waveform**
+![image](https://github.com/user-attachments/assets/24c53758-d051-4157-bc47-f6f6ed5c1aa4)
+
+**Conclusion:**
+The output result displaying the sum of integers from 1 to 9 is clearly visible as 02D for waveforms in both Makerchip and GTKWave simulations.
+
+</details>
 
 
 
