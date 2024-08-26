@@ -926,7 +926,7 @@ gtkwave pre_synth_sim.vcd
 ![image](https://github.com/user-attachments/assets/ac34e25d-46fb-43fd-9525-c5a1dd6b1aa5)
 
 **GTKWave Waveform:**
-![image](https://github.com/user-attachments/assets/24c53758-d051-4157-bc47-f6f6ed5c1aa4)
+![image](https://github.com/user-attachments/assets/a0ee380b-896b-42e0-b9b8-4120d61feeeb)
 
 **Conclusion:**
 The output result displaying the sum of integers from 1 to 9 is clearly visible as 02D for waveforms in both Makerchip and GTKWave simulations.
