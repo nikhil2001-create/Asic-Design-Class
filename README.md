@@ -1027,7 +1027,7 @@ iverilog -o ./pre_synth_sim.out -DPRE_SYNTH_SIM src/module/testbench.v -I src/in
 gtkwave pre_synth_sim.vcd
 ```
 
-***Below is the screenshot after simulation of the output waveform of sum of numbers 1 to 9 :***
+***Below is a screenshot of the simulated output waveform representing the sum of numbers from 1 to 9:***
 
 ![image](https://github.com/user-attachments/assets/a6d376cb-4ad2-43be-bf4b-48fa83a2cae0)
 
