@@ -937,7 +937,7 @@ The output result displaying the sum of integers from 1 to 9 is clearly visible 
 <summary>Lab 7 (29/08/24)</summary>
 <br>
 
-# Task: Analyzing RISC-V Pre-Synthesis Analog Simulation outputs using iverilog GTKwave.
+# Task: Integration of Peripherals for Digital-to-Analog Conversion Using DAC and PLL: 
 
 ## 1) Installation of iverilog, gtkwave, yosys and OpenSta:
 
