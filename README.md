@@ -34,7 +34,9 @@ No. of instructions = (100dc - 100b0)/4 = 44/4 = 11 instructions
 <details>
 <summary>Lab 2 (19/07/24)</summary>
 <br>
-## ASIC Lab 2 - Task : Verify the instructions in riscv compiler for sum1ton.c code
+  
+## ASIC Lab 2 - Task : Verify the instructions in riscv compiler for sum1ton.c code 
+  
 **Step 1:** Verify the output of the C program first using gcc compiler and then using spike simulator for riscv. Output must be same in both cases.
 
 ![image](https://github.com/user-attachments/assets/88ef0353-aec4-44af-91b6-c6edc24f3026)
@@ -61,7 +63,9 @@ No. of instructions = (100dc - 100b0)/4 = 44/4 = 11 instructions
 <details>
 <summary>Lab 3 (22/07/24)</summary>
 <br>
-## ASIC Lab 3: ##
+  
+## ASIC Lab 3: 
+  
 ## Task 1: "Identify various RISC-V instruction type (R, I, S, B, U, J) and exact 32-bit instruction code in the instruction type format for below RISC-V instructions. 
 
 | Instruction       | Type | Hexadecimal | 32-bit Representation             | Description                                       |
