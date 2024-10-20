@@ -1352,7 +1352,7 @@ By following these steps,we can observe the behavior of the D Flip-Flop with an 
 **Observation:** From the waveform, we can observe that when the asynchronous reset is activated (set high), the Q output immediately resets to zero, regardless of the clock's positive or negative edge. This demonstrates the asynchronous behavior of the reset signal.
 
 
-## 1. D Flip-Flop with Asynchronous Set:
+## 2. D Flip-Flop with Asynchronous Set:
 
 This section demonstrates the implementation of a D Flip-Flop with an asynchronous set, using Verilog. The design ensures that when the asynchronous set signal is high, the output Q is immediately set to 1, regardless of the clock signal.
 
