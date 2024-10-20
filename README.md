@@ -1040,8 +1040,150 @@ gtkwave pre_synth_sim.vcd
 
 </details>
 
+<details>
+<summary>Lab 8 (15/10/24)</summary>
+<br>
+  
+# Task : RTL design using Verilog with SKY130 Technology
+<details>
+<summary>Day-1</summary>
+<br>
+  
+**iVerilog based Simulation flow:**
+ 
+ ![image](https://github.com/user-attachments/assets/0e2f8052-f0f8-4cfa-bab0-fc83a490afb9)
+
+# LAB-1:
+**Aim: Cloning the required files from github repository:**
+
+**Commands:**
+```
+sudo -i
+sudo apt-get install git
+ls
+cd /home
+mkdir VLSI
+cd VLSI
+git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git
+cd sky130RTLDesignAndSynthesisWorkshop/verilog_files
+ls
+```
+
+**Screenshot of the terminal window:**
+
+![image](https://github.com/user-attachments/assets/5ab593f9-447f-44eb-ac36-8b8a4d8a3b2b)
+
+# LAB-2:
+**Aim: Introduction to iVerilog gtkwave:**
+
+In this lab we will implement a 2:1 multiplexer.
+
+**Command to view Verilog code & testbench file:**
+```
+gvim tb_good_mux.v -o good_mux.v
+```
+![image](https://github.com/user-attachments/assets/d43bd7e1-60c0-4dfd-8242-647a83636344)
+
+**Steps for implementing the waveform on gtkwave:**
+```
+iverilog good_mux.v tb_good_mux.v
+ls
+./a.out
+gtkwave tb_good_mux.vcd
+```
+
+**Screenshots of terminal window & gtkwave waveform:**
+
+![image](https://github.com/user-attachments/assets/6759c7c8-41b9-4e3f-bcbc-c76a4e26c40f)
+
+![image](https://github.com/user-attachments/assets/6e8118d7-0b71-4d48-8608-727388c04fef)
+
+# LAB-3:
+**Aim: Synthesis of 2:1 Multiplexer using Yosys and Logic Synthesis:**
+
+## YOSYS:
+A synthesizer is essential in digital design, converting RTL (Register Transfer Level) code into a gate-level netlist. This netlist gives a detailed representation of the circuit, including the logic gates and their connections, forming the groundwork for subsequent steps like placement and routing. In this particular design process, Yosys, an open-source synthesis tool for Verilog HDL, is being used. Yosys employs various optimization strategies to produce an efficient gate-level design from the RTL code.
+
+The primary inputs and outputs are the same in both the RTL design and the synthesized netlist, allowing the same test bench to be used for both.
+
+**Block Diagram of Yosys setup :**
+![image](https://github.com/user-attachments/assets/adf3de9f-78c3-4ea8-b07d-01788b398b76)
 
 
+
+**Block Diagram of Systhesis Verification :**
+![image](https://github.com/user-attachments/assets/72e54532-7abc-43ac-b32e-6a5bde0a9014)
+
+## Logic Synthesis:
+
+**RTL Design:** The design is modeled using a behavioral description in Hardware Description Language (HDL) according to the given specifications.
+
+**Synthesis:** The RTL code is transformed into a gate-level representation, where the design is mapped into logic gates and connections, producing a file called the netlist. In Verilog, a netlist is a representation of a circuit that describes how various components (such as logic gates, flip-flops, or modules) are interconnected. 
+
+## Command steps for Yosys:
+
+**This will invoke/start the yosys:**
+```
+yosys
+```
+
+
+**Load the sky130 standard library:**
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib      
+```
+
+
+**Read the design files:**
+```
+read_verilog good_mux.v
+```
+![image](https://github.com/user-attachments/assets/5717cbc9-0303-46b2-bcbe-41748325c4ad)
+
+
+**Synthesize the top level module:**
+```
+synth -top good_mux
+```
+![image](https://github.com/user-attachments/assets/14018083-104b-4037-8327-819e73043671)
+
+
+**Map to the standard library:**
+```
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+![image](https://github.com/user-attachments/assets/c2d5e2d3-25e2-4df9-a8dd-0b8c2796282a)
+![image](https://github.com/user-attachments/assets/f26e5b13-e93f-465c-9567-6f3dd301782c)
+
+
+
+**To view the graphical representation of the generated logic, simply enter:**
+```
+show
+```
+![image](https://github.com/user-attachments/assets/f59ce8e8-79b0-4f26-8f85-04f6c65fd07a)
+
+
+**To save the netlist, use the write_verilog command. This will generate the netlist file in the current directory:**
+```
+write_verilog -noattr good_mux_netlist.v
+!gvim good_mux_netlist.v
+```
+
+![image](https://github.com/user-attachments/assets/ba686931-ea3d-4256-85d4-2c3aba6cd24c)
+</details>
+
+<details>
+<summary>Day-2</summary>
+<br>
+
+
+
+</details>
+
+
+</details>
 
 
 
