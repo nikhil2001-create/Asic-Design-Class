@@ -1182,7 +1182,6 @@ write_verilog -noattr good_mux_netlist.v
 
 ## LAB-4:
 **Introduction and Walkthrough to ' dot lib ':**
-ChatGPT
 
 The .lib file serves as a collection of standard cells, including slow cells, fast cells, and other essential components. To view the contents of a .lib file, use the following command:
 ```
@@ -1328,12 +1327,12 @@ endmodule
 
 1. Navigate to the directory where the Verilog files are located:
 ```
-cd /home/username/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
 ```
 
 2. Run the following commands to compile and simulate the design:
 ```
-civerilog dff_asyncres.v tb_dff_asyncres.v
+iverilog dff_asyncres.v tb_dff_asyncres.v
 ls
 ```
 The compiled output will be saved as a.out.
@@ -1397,7 +1396,7 @@ endmodule
 
 1. Navigate to the directory containing the Verilog files:
 ```
-cd /home/username/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
 ```
 
 2. Compile the Verilog code and the testbench using Icarus Verilog:
@@ -1420,13 +1419,540 @@ After running the simulation, we will observe the behavior of the D Flip-Flop wi
 
 ![image](https://github.com/user-attachments/assets/708c04a7-baac-40c6-8a65-81eb4cb1d236)
 
+**Observation:** The waveform clearly shows that the Q output switches to one when the asynchronous set is asserted high, regardless of the clock edge (positive or negative).
+
+## 3. D Flip-Flop with Synchronous Reset:
+
+This section contains Verilog code to implement a D Flip-Flop with a **Synchronous Reset**.
+
+The Verilog code defines a D flip-flop with a synchronous reset, where the reset signal is active high. When the reset is asserted during a clock edge, the output `q` is set to 0. Otherwise, the flip-flop captures the value of `d` on the rising edge of the clock.
+```
+module dff_syncres (input clk,
+    input sync_reset,
+    input d,
+    output reg q
+);
+    
+    always @(posedge clk) begin
+        if (sync_reset)
+            q <= 1'b0;
+        else
+            q <= d;
+    end
+endmodule
+```
+
+Testbench Code:
+```
+module tb_dff_syncres;
+    reg clk, sync_reset, d;
+    wire q;
+
+    // Instantiate the Device Under Test (DUT)
+    dff_syncres uut (.clk(clk), .sync_reset(sync_reset), .d(d), .q(q));
+
+    initial begin
+        // Initialize waveform dump
+        $dumpfile("tb_dff_syncres.vcd");
+        $dumpvars(0, tb_dff_syncres);
+
+        // Initialize inputs
+        clk = 0;
+        sync_reset = 1;
+        d = 0;
+
+        // End simulation after a set time
+        #3000 $finish;
+    end
+
+    // Clock generation
+    always #10 clk = ~clk;
+
+    // Toggle the input `d` every 23 time units
+    always #23 d = ~d;
+
+    // Toggle the reset signal every 547 time units
+    always #547 sync_reset = ~sync_reset;
+endmodule
+```
+
+**Steps to Run the Simulation:**
+
+1. Navigate to the directory containing the Verilog files:
+```
+cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+```
+
+2. Compile the Verilog code and the testbench using Icarus Verilog:
+```
+iverilog dff_async_set.v tb_dff_async_set.v
+ls
+```
+
+The output will be saved as a.out.
+
+3. Run the compiled file and open the waveform in GTKWave:
+```
+./a.out
+gtkwave tb_dff_async_set.vcd
+```
+
+**Result:**
+After running the simulation, we will observe the behavior of the D Flip-Flop with an Synchronous Reset in the waveform viewer. Below is a snapshot of the commands and the resulting waveforms.
+
+![image](https://github.com/user-attachments/assets/f016b085-b521-45da-b90a-3270b7ca8498)
+
+**Observation:** From the waveform, it is evident that the Q output transitions to zero when the synchronous reset is asserted high, but only at the positive edge of the clock signal.
 
 
+# Synthesis of Various D-Flip-Flops using Yosys
+
+This repository demonstrates the synthesis and simulation of three types of D-Flip-Flops using Yosys:  
+1. **Asynchronous Reset**  
+2. **Asynchronous Set**  
+3. **Synchronous Reset**
+
+## 1. Asynchronous Reset D Flip-Flop
+
+### Command Steps for Synthesis:
+
+Follow the steps below to synthesize the asynchronous reset D Flip-Flop design:
+
+1. Navigate to the required directory:
+
+    ```
+    cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+    ```
+
+2. Launch Yosys:
+
+    ```
+    yosys
+    ```
+
+3. Read the standard cell library:
+
+    ```
+    read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+    ```
+
+4. Read the Verilog design files:
+
+    ```
+    read_verilog dff_asyncres.v
+    ```
+
+5. Synthesize the design:
+
+    ```
+    synth -top dff_asyncres
+    ```
+
+6. Generate the netlist:
+
+    ```
+    dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+    ```
+
+7. Create a graphical representation of the Asynchronous Reset D Flip-Flop:
+
+    ```
+    show
+    ```
+
+![image](https://github.com/user-attachments/assets/016a61ad-2f7e-46c8-8707-27df01599718)
 
 
+## 2. Asynchronous Set D Flip-Flop
 
+### Command Steps for Synthesis
+
+Follow the steps below to synthesize the asynchronous set D Flip-Flop design:
+
+1. Navigate to the required directory:
+
+    ```
+    cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+    ```
+
+2. Launch Yosys:
+
+    ```
+    yosys
+    ```
+
+3. Read the standard cell library:
+
+    ```
+    read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+    ```
+
+4. Read the Verilog design files:
+
+    ```
+    read_verilog dff_async_set.v
+    ```
+
+5. Synthesize the design:
+
+    ```
+    synth -top dff_async_set
+    ```
+
+6. Generate the netlist:
+
+    ```
+    dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+    ```
+
+7. Create a graphical representation of the Asynchronous Set D Flip-Flop:
+
+    ```
+    show
+    ```
+
+![image](https://github.com/user-attachments/assets/e8b707f9-ca5d-4c6d-97c1-387b7f6b4840)
+
+
+## 3. Synchronous Reset D Flip-Flop
+
+### Command Steps for Synthesis
+
+Follow the steps below to synthesize the synchronous reset D Flip-Flop design:
+
+1. Navigate to the required directory:
+
+    ```
+    cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+    ```
+
+2. Launch Yosys:
+
+    ```
+    yosys
+    ```
+
+3. Read the standard cell library:
+
+    ```
+    read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+    ```
+
+4. Read the Verilog design files:
+
+    ```
+    read_verilog dff_syncres.v
+    ```
+
+5. Synthesize the design:
+
+    ```
+    synth -top dff_syncres
+    ```
+
+6. Generate the netlist:
+
+    ```
+    dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+    ```
+
+7. Create a graphical representation of the Synchronous Reset D Flip-Flop:
+
+    ```
+    show
+    ```
+![image](https://github.com/user-attachments/assets/930de8fb-a284-4420-a034-07ef24de4667)
 
 </details>
+
+<details>
+<summary>Day-3</summary>
+<br>
+  
+# Combinational and sequential optmizations:
+
+## LAB-6:
+## Optimization of Various Combinational Designs using Yosys:
+
+This section demonstrates the synthesis and optimization of various combinational designs using Yosys.
+
+## Combinational Designs:
+1. **2-input AND gate**
+2. **2-input OR gate**
+3. **3-input AND gate**
+4. **2-input XNOR gate (3-input Boolean Logic)**
+5. **Multiple Module Optimization-1**
+6. **Multiple Module Optimization-2**
+
+---
+
+## 1. 2-input AND Gate
+
+### Verilog Code:
+```
+module opt_check(input a, input b, output y);
+	assign y = a?b:0;
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+1. Navigate to the required directory:
+```  
+cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+```
+2. Launch Yosys:
+```
+yosys
+```
+
+3. Read the standard cell library:
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+4. Read the Verilog design files:
+```
+read_verilog opt_check.v
+```
+
+5. Synthesize the design:
+```
+synth -top opt_check
+```
+
+![image](https://github.com/user-attachments/assets/48fe028f-b50a-49c9-a8f0-477751f24339)
+
+
+6. Generate the netlist:
+```
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+7. Remove unused or redundant logic:
+```
+opt_clean -purge
+```
+
+8. Create a graphical representation:
+```
+show
+```
+
+![image](https://github.com/user-attachments/assets/b4434e45-96f7-4622-8cbe-c3c40d2e6a15)
+
+---
+
+## 2. 2-input OR Gate
+
+### Verilog Code:
+```
+module opt_check2(input a, input b, output y);
+	assign y = a?1:b;
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+Repeat the same steps as for the 2-input AND gate with the following changes:
+
+1. Use `opt_check2.v` as the Verilog file:
+```
+read_verilog opt_check2.v
+```
+
+2. Synthesize the design with `opt_check2`:
+```
+synth -top opt_check2
+```
+
+![image](https://github.com/user-attachments/assets/092b38bb-5b9a-4ae1-99da-5937875777b2)
+
+
+**NetList:**
+![image](https://github.com/user-attachments/assets/ec68e2e2-fa49-4063-b02e-5cf0c0d8a10a)
+
+
+---
+
+## 3. 3-input AND Gate
+
+### Verilog Code:
+```
+module opt_check3(input a, input b, input c, output y);
+	assign y = a?(b?c:0):0;
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+Follow the same steps as for the 2-input AND gate with the following changes:
+
+1. Use `opt_check3.v` as the Verilog file:
+```
+read_verilog opt_check3.v
+```
+
+2. Synthesize the design with `opt_check3`:
+synth -top opt_check3
+
+![image](https://github.com/user-attachments/assets/c53d8a10-a290-468a-93fd-45b301c63064)
+
+
+**NetList:**
+![image](https://github.com/user-attachments/assets/bd72389e-d347-4b2f-a4bd-c7d192127c9a)
+
+---
+
+## 4. 2-input XNOR Gate (3-input Boolean Logic)
+
+### Verilog Code:
+```
+module opt_check4(input a, input b, input c, output y);
+	assign y = a ? (b ? ~c : c) : ~c;
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+Follow the same steps as for the 2-input AND gate with the following changes:
+
+1. Use `opt_check4.v` as the Verilog file:
+read_verilog opt_check4.v
+
+2. Synthesize the design with `opt_check4`:
+```
+synth -top opt_check4
+```
+
+![image](https://github.com/user-attachments/assets/5cd3b09c-9fd3-4a16-8f88-8c2b9119a456)
+
+
+**NetList:**
+![image](https://github.com/user-attachments/assets/9b22c180-a0fb-4933-93e6-0f7391764984)
+
+---
+
+## 5. Multiple Module Optimization-1
+
+### Verilog Code:
+```
+module sub_module1(input a, input b, output y);
+	assign y = a & b;
+endmodule
+module sub_module2(input a, input b, output y);
+	assign y = a^b;
+endmodule
+
+module multiple_module_opt(input a, input b, input c, input d, output y);
+	wire n1, n2, n3;
+	
+	sub_module1 U1 (.a(a), .b(1'b1), .y(n1));
+	sub_module2 U2 (.a(n1), .b(1'b0), .y(n2));
+	sub_module2 U3 (.a(b), .b(d), .y(n3));
+	
+	assign y = c | (b & n1);
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+1. Navigate to the required directory:
+```
+cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+```
+
+2. Launch Yosys:
+```
+yosys
+```
+
+3. Read the standard cell library:
+```
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+4. Read the Verilog design files:
+```
+read_verilog multiple_module_opt.v
+```
+
+5. Synthesize the design:
+```
+synth -top multiple_module_opt
+```
+
+![image](https://github.com/user-attachments/assets/66dd0396-4067-4f8d-a67f-aeb6b841c2ab)
+
+
+6. Generate the netlist:
+```
+abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+
+7. Remove unused or redundant logic:
+```
+opt_clean -purge
+```
+
+8. Flatten the design to merge hierarchical modules:
+```
+flatten
+```
+
+9. Create a graphical representation:
+```
+show
+```
+
+![image](https://github.com/user-attachments/assets/a5fd14ba-acad-43ce-be57-ed5c2389712f)
+
+---
+
+## 6. Multiple Module Optimization-2
+
+### Verilog Code:
+```
+module sub_module(input a, input b, output y);
+	assign y = a & b;
+endmodule
+
+module multiple_module_opt2(input a, input b, input c, input d, output y);
+	wire n1, n2, n3;
+	
+	sub_module U1 (.a(a), .b(1'b0), .y(n1));
+	sub_module U2 (.a(b), .b(c), .y(n2));
+	sub_module U3 (.a(n2), .b(d), .y(n3));
+	sub_module U4 (.a(n3), .b(n1), .y(y));
+endmodule
+```
+
+### Command Steps for Synthesis:
+
+Follow the same steps as for Multiple Module Optimization-1 with the following changes:
+
+1. Use `multiple_module_opt2.v` as the Verilog file:
+```
+read_verilog multiple_module_opt2.v
+```
+
+2. Synthesize the design with `multiple_module_opt2`:
+```
+synth -top multiple_module_opt2
+```
+
+![image](https://github.com/user-attachments/assets/3bcbe73b-3c7f-422c-a2c9-c15440de179f)
+
+3. Flatten the design and create a graphical representation:
+```
+flatten
+show
+```
+
+![image](https://github.com/user-attachments/assets/f26088ce-fa91-40d5-9160-b9ba2b46f8ce)
+
+</details>
+
 
 
 </details>
