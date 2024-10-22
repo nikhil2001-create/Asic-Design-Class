@@ -1663,6 +1663,52 @@ Follow the steps below to synthesize the synchronous reset D Flip-Flop design:
     ```
 ![image](https://github.com/user-attachments/assets/930de8fb-a284-4420-a034-07ef24de4667)
 
+## Generating Netlists for Special Case Circuits:
+
+**1. Multiplication by a Factor of 2:**
+
+In this circuit, hardware multipliers are not required. Instead, the multiplication by 2 is achieved by shifting the number left by appending a zero bit to the Least Significant Bit (LSB). This effectively doubles the value without the need for dedicated hardware. The following commands generate the netlist for this operation:
+```
+yosys
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog mult_2.v
+synth -top mul2
+show
+write_verilog -noattr mul2_netlist.v
+!gvim mul2_netlist.v
+```
+
+Since no hardware is involved, the abc command is skipped with the -liberty flag as there's nothing to map.
+
+![image](https://github.com/user-attachments/assets/5305edaf-f703-4990-b32b-38818cd1b6e4)
+
+![image](https://github.com/user-attachments/assets/71e5beff-fe32-41bd-a870-2762cc1505d3)
+
+![image](https://github.com/user-attachments/assets/461ca474-b651-4169-92ac-034b73e96f19)
+
+
+
+**2. Multiplication by a Factor of 9:**
+
+Similar to the previous case, multiplication by 9 is implemented without using dedicated hardware cells or memories. The logic is optimized through the synthesis tool.
+
+Commands used for netlist generation:
+```
+yosys
+read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog mult_8.v
+synth -top mult8
+show
+write_verilog -noattr mult8_netlist.v
+!gvim mult8_netlist.v
+```
+
+![image](https://github.com/user-attachments/assets/a8b33599-c1bc-4959-b56f-c260be1d9bc3)
+
+![image](https://github.com/user-attachments/assets/f46b84df-622f-447f-88a3-c79f15a18c2e)
+
+![image](https://github.com/user-attachments/assets/2761d1e0-dea5-4681-97a3-6cc355f0f259)
+
 </details>
 
 <details>
