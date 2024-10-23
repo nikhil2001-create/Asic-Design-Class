@@ -2734,7 +2734,9 @@ These waveforms represent the results of the Gate Level Synthesis for the Blocki
 
    ![Screenshot from 2024-10-24 01-48-26](https://github.com/user-attachments/assets/0f903cd1-43b2-455e-8f3a-822a6b7ed7ff)
 
-      
+   **The waveform shows the generated sawtooth waveform and cells.**
+
+   
 ## "Functional Simulations (Previously done in LAB-7)":
 
 **Command Steps:**
