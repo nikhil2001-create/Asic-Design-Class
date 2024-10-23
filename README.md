@@ -2651,4 +2651,113 @@ These waveforms represent the results of the Gate Level Synthesis for the Blocki
 </details>
 
 
+<details>
+<summary>Lab 9 (22/10/24)</summary>
+<br>
+
+# Aim: Synthesize the RISC-V core and compare its output with functional simulations.
+
+## Steps:
+
+1. **Copy source files:**
+
+   First copy the `src` folder from `VSDBabySoC` directory to your `VLSI` folder. Then, move this folder into the `sky130RTLDesignAndSynthesisWorkshop` directory using the following commands:
+   ```
+   sudo -i
+   cd /home/nikhil-bhusari/VLSI/
+   cp -r src sky130RTLDesignAndSynthesisWorkshop/
+   ```
+   
+2. **Navigate to the target directory:**
+
+   Move to the correct directory to begin the synthesis process:
+   ```
+   cd ~/VLSI/sky130RTLDesignAndSynthesisWorkshop/src/module
+   ```
+   
+3. **Start Yosys for synthesis:**
+
+   Launch `yosys` to begin synthesizing the design:
+   ```
+   yosys
+   ```
+   
+4. **Load the standard cell library:**
+
+   Import the necessary library for synthesis:
+   ```
+   read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+   ```
+   
+5. **Load the Verilog design files:**
+
+   Read in the Verilog files for design:
+   ```
+   read_verilog clk_gate.v
+   read_verilog rvmyth.v
+   ```
+
+   ![image](https://github.com/user-attachments/assets/a86cb724-9fea-4af1-83c2-9e069bf72e4f)
+
+   
+6. **Synthesize the RISC-V design:**
+
+   Run the synthesis command for the top module `rvmyth`:
+   ```
+   synth -top rvmyth
+   ```
+   
+7. **Generate the netlist:**
+
+   Output the synthesized netlist:
+   ```
+   write_verilog -noattr rvmyth.v
+   gvim rvmyth.v
+   exit
+   ```
+   
+   ![image](https://github.com/user-attachments/assets/8191edc2-96bb-46df-8833-71c82ab66c53)
+
+**The Heirarchy of the Net list is shown below :**
+![image](https://github.com/user-attachments/assets/8f837a3e-7025-4f6b-adf6-1391d06da2b6)
+
+   
+8. **Simulate and observe the output waveform:**
+
+   Use `iverilog` to simulate the synthesized RISC-V and generate the waveform:
+   ```
+   iverilog ../../my_lib/verilog_model/primitives.v ../../my_lib/verilog_model/sky130_fd_sc_hd.v rvmyth.v testbench.v vsdbabysoc.v avsddac.v avsdpll.v clk_gate.v
+   ls
+   ./a.out
+   gtkwave dump.vcd
+   ```
+
+   ![Screenshot from 2024-10-24 01-48-26](https://github.com/user-attachments/assets/0f903cd1-43b2-455e-8f3a-822a6b7ed7ff)
+
+      
+## "Functional Simulations (Previously done in LAB-7)":
+
+**Command Steps:**
+```
+cd ~
+cd VSDBabySoC
+iverilog -o ./pre_synth_sim.out -DPRE_SYNTH_SIM src/module/testbench.v -I src/include -I src/module/
+./pre_synth_sim.out
+gtkwave pre_synth_sim.vcd
+```
+
+## COMPARISON of Functionality vs Synthesized output waveform:
+
+**LAB-7 Waveform (O1):**
+![image](https://github.com/user-attachments/assets/ca8bca7c-2892-4384-9ae7-9d09d6142663)
+
+**LAB-9 Waveform (O2):**
+![WhatsApp Image 2024-10-24 at 1 57 45 AM](https://github.com/user-attachments/assets/4914b2cf-b297-4d35-94a5-1e6c092b03e3)
+
+
+## CONCLUSION : The Functionality vs Synthesized output waveform matches, i.e, O1 = O2.
+
+</details>
+
+
 
