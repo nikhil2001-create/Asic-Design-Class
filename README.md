@@ -2762,4 +2762,82 @@ gtkwave pre_synth_sim.vcd
 </details>
 
 
+<details>
+<summary>Lab 10 (24/10/24)</summary>
+<br>
 
+# Static Timing Analysis for a Synthesized RISC-V Core with OpenSTA
+
+## Installation of Required Tools:
+**1. Install CUDD:**
+
+**Download and move the file to the home directory for easy access:**
+```
+cd ~
+tar xvfz cudd-3.0.0.tar.gz
+cd cudd-3.0.0
+./configure
+make
+```
+
+![image](https://github.com/user-attachments/assets/d0f2f69d-0011-4fe8-a58d-17876f0bfc68)
+
+**2. Set up OpenSTA:**
+**Ensure system update and installation of dependencies:**
+```
+cd ~
+sudo apt-get install cmake clang gcc tcl swig bison flex -y
+```
+
+**Clone OpenSTA repository and build with CUDD support:**
+```
+git clone https://github.com/parallaxsw/OpenSTA.git
+cd OpenSTA
+cmake -DCUDD_DIR=/home/nikhil-bhusari/cudd-3.0.0
+make
+app/sta
+```
+
+***Create a new directory for lab setup:***
+```
+mkdir ~/OpenSTA/lab10
+```
+
+**Move all necessary files into lab10 directory for timing analysis.**
+
+## Timing Analysis Procedure:
+
+Ensure the following parameters for analysis:
+ - Clock period: 9.85 ns
+ - Setup uncertainty & clock transition: 5% of clock period
+ - Hold uncertainty & data transition: 8% of clock period
+
+```
+cd ~/OpenSTA/app
+./sta
+
+# Load libraries and design netlist
+read_liberty ~/OpenSTA/lab10/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_verilog ~/OpenSTA/lab10/nikhil_riscv_netlist.v
+link_design rvmyth
+
+# Configure timing constraints
+create_clock -name clk -period 9.85 [get_ports clk]
+set_clock_uncertainty [expr 0.05 * 9.85] -setup [get_clocks clk]
+set_clock_uncertainty [expr 0.08 * 9.85] -hold [get_clocks clk]
+set_clock_transition [expr 0.05 * 9.85] [get_clocks clk]
+set_input_transition [expr 0.08 * 9.85] [all_inputs]
+
+# Generate timing analysis reports
+report_checks -path_delay max
+report_checks -path_delay min
+```
+
+![image](https://github.com/user-attachments/assets/50bb1ff2-98f2-4f83-a7b4-7ecc32bc92f6)
+
+![image](https://github.com/user-attachments/assets/f7162fb0-0129-4419-b0a6-6f7e5e999144)
+
+![image](https://github.com/user-attachments/assets/e3f3b66b-4a65-4609-b530-6f15e4a2c7bf)
+
+
+</details>
