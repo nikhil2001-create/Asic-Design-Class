@@ -2768,6 +2768,35 @@ gtkwave pre_synth_sim.vcd
 
 # Static Timing Analysis for a Synthesized RISC-V Core with OpenSTA
 
+## Static Timing Analysis (STA):
+
+Static Timing Analysis (STA) is a critical method in digital circuit design used to verify timing performance without dynamic simulation, ensuring the circuit meets its timing constraints. Key aspects include:
+
+- **Timing Paths**: STA evaluates all potential input-output paths by analyzing gate and interconnect delays.
+- **Setup and Hold Times**: STA checks setup and hold times to avoid timing violations. Setup time is the minimum duration data must be stable before the clock edge, while hold time is the required stability duration after.
+- **Clock Constraints**: STA incorporates clock definitions like frequency, period, skew, and jitter.
+- **Worst-Case Scenarios**: It assumes worst-case conditions (e.g., max load, temperature, voltage) to ensure robust performance under all operating conditions.
+- **Tools**: Tools like Synopsys PrimeTime and Cadence Tempus automate the STA process, detecting timing issues and providing detailed reports.
+
+## Reasons for STA
+- Ensures **timing verification** and **early detection of issues**, identifies **timing violations**, and supports **performance optimization**.
+- Facilitates **power analysis** by assessing clock frequency impact, providing assurance for robust design under various conditions.
+
+---
+
+## Timing Path Types
+1. **Reg2Reg Path**: Connects two registers, analyzing data flow through combinational logic.
+   - **Setup & Hold Times**: Ensures data stability for the next clock cycle.
+   - **Critical Path**: A reg2reg path may limit circuit frequency if it is the longest timing path.
+   
+2. **Clk2Reg Path**: Connects the clock signal to a register.
+   - **Clock Delay & Setup Timing**: Assesses clock distribution delays to ensure data arrives at the register before the clock edge.
+   - **Cross-Domain Considerations**: For registers in different clock domains, clk2reg paths include additional checks for synchronization and metastability.
+
+## Applying STA to RISC-V Core
+For a synthesized RISC-V core, STA helps generate setup and hold timing reports, validating timing integrity for reliable performance across various operating conditions.
+
+
 ## Installation of Required Tools:
 **1. Install CUDD:**
 
@@ -2833,9 +2862,31 @@ report_checks -path_delay max
 report_checks -path_delay min
 ```
 
+**To execute the OpenSTA and obtain the timing reports, run the below command:**
+```
+sta scripts/sta.conf
+```
+
+**Following are contents of the sta.conf file:**
+```
+read_liberty -min ./lib/sta/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_liberty -max ./lib/sta/sky130_fd_sc_hd__tt_025C_1v80.lib
+read_liberty -min ./lib/avsdpll.lib
+read_liberty -max ./lib/avsdpll.lib
+read_liberty -min ./lib/avsddac.lib
+read_liberty -max ./lib/avsddac.lib
+read_verilog ./src/module/vsdbabysoc_synth.v
+link_design vsdbabysoc
+read_sdc ./src/sdc/sta_post_synth.sdc
+```
+
 ![image](https://github.com/user-attachments/assets/50bb1ff2-98f2-4f83-a7b4-7ecc32bc92f6)
 
+**reg2reg max path:**
+
 ![image](https://github.com/user-attachments/assets/f7162fb0-0129-4419-b0a6-6f7e5e999144)
+
+**reg2reg min path:**
 
 ![image](https://github.com/user-attachments/assets/e3f3b66b-4a65-4609-b530-6f15e4a2c7bf)
 
