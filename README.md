@@ -2183,7 +2183,7 @@ gtkwave tb_dff_const2.vcd
 ```
 cd ~  
 sudo -i  
-cd /home/chandra-shekhar-jha/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files  
+cd /home/nikhil-bhusari/VLSI/sky130RTLDesignAndSynthesisWorkshop/verilog_files  
 ```
 
 Invoke Yosys:
