@@ -2979,7 +2979,7 @@ source /home/nikhil-bhusari/VSDBabySoC/src/tcl/sta_pvt.tcl
 
 ![image](https://github.com/user-attachments/assets/f6490947-e04a-42d1-8306-b418bbe665f9)
 
-## Worst (Negative slack)Setup Slack (ns):
+## Worst (Negative slack) Setup Slack (ns):
 
 ![image](https://github.com/user-attachments/assets/3cda9dd3-0948-45ee-88bf-a4663b4e97c0)
 
