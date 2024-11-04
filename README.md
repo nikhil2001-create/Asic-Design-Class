@@ -2994,8 +2994,8 @@ source /home/nikhil-bhusari/VSDBabySoC/src/tcl/sta_pvt.tcl
 
 The analysis report shows the following key points:
 
-1. Worst Setup Slack: sky130_fd_sc_hd__ss_n40C_1v28.lib library file has the worst setup slack.
-2. Worst Hold Slack: sky130_fd_sc_hd__ff_100C_1v95.lib library file has the worst hold slack.
+1. **Worst Setup Slack:** sky130_fd_sc_hd__ss_n40C_1v28.lib library file has the worst setup slack.
+2. **Worst Hold Slack:** sky130_fd_sc_hd__ff_100C_1v95.lib library file has the worst hold slack.
 
 The total negative slack and worst negative slacks are provided in the detailed slacks report screenshots.
 
