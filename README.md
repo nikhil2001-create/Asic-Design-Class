@@ -3538,40 +3538,18 @@ git clone https://github.com/nickson-jose/vsdstdcelldesign
 cd vsdstdcelldesign
 cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
 ls
-magic -T sky130A.tech sky130_inv.mag &
+magic -T sky130A.tech sky130_nikinv.mag &
 ```
 
-![image](https://github.com/user-attachments/assets/8993ddd9-58fb-4231-b568-0f6f9773db42)
+![image](https://github.com/user-attachments/assets/27c97f74-fef0-435b-b377-119f12bf73ec)
+
+2. Load the custom inverter layout in magic and explore.
+Screenshot of custom inverter layout in magic
+![image](https://github.com/user-attachments/assets/6197654e-4036-4e8e-9744-37fb9913d11b)
 
 
 
-
-
-![image](https://github.com/user-attachments/assets/c966cf08-b528-4f04-95a5-5dd859ffbde6)
-
-
-
-
-**Inception of Layout CMOS fabrication process**
-
-The 16-mask CMOS design fabrication process:
-
-1. Substrate Preparation: The process begins with preparing a silicon wafer as the foundational substrate for the circuit.
-2. N-Well Formation: The N-well regions are created on the substrate by introducing impurities, typically phosphorus, through ion implantation or diffusion
-3. P-Well Formation: Similar to the N-well formation, P-well regions are created using ion implantation or diffusion with boron or other suitable dopants.
-4. Gate Oxide Deposition: A thin silicon dioxide layer is deposited to form the gate oxide, which insulates the gate from the channel.
-5. Poly-Silicon Deposition: A layer of polysilicon is deposited on the gate oxide to serve as the gate electrode.
-6. Poly-Silicon Masking and Etching: A photoresist mask defines areas where polysilicon should remain, and etching removes exposed portions.
-7. N-Well Masking and Implantation: A photoresist mask is used to define the areas where the N-well regions should be preserved. Phosphorus or other suitable impurities are then implanted into the exposed regions.
-8. P-Well Masking and Implantation: Similarly, a photoresist mask is used to define the areas where the P-well regions should be preserved. Boron or other suitable impurities are implanted into the exposed regions.
-9. Source/Drain Implantation: Using photoresist masks, dopants are implanted to create source and drain regions (e.g., arsenic for NMOS, boron for PMOS).
-10. Gate Formation: The gate electrode is defined by etching the poly-silicon layer using a photoresist mask.
-11. Source/Drain Masking and Etching: A photoresist mask is applied to define the source and drain regions followed by etching to remove the oxide layer in those areas.
-12. Contact/Via Formation: Contact holes or vias are etched through the oxide layer to expose the underlying regions, such as the source/drain regions or poly-silicon gates.
-13. Metal Deposition: A layer of metal, typically aluminum or copper, is deposited on the wafer surface to form the interconnects.
-14. Metal Masking and Etching: A photoresist mask is used to define the metal interconnects, and etching is performed to remove the exposed metal, leaving behind the desired interconnect patterns.
-15. Passivation Layer Deposition: A protective layer, often made of silicon dioxide or nitride, is deposited to isolate and shield the metal interconnects.
-16. Final Testing and Packaging: The fabricated wafer undergoes rigorous testing to ensure the functionality of the integrated circuits. The working chips are then separated, packaged, and prepared for use in various electronic devices.
+NMOS and PMOS identified:
 
 ![image](https://github.com/user-attachments/assets/d24e7009-a71a-437f-94c8-8233c633f775)
 
@@ -3579,32 +3557,30 @@ Inverter layout:
 
 Identify NMOS:
 
-![image](https://github.com/user-attachments/assets/1c05d6ac-3684-401e-971e-afeacb023c97)
-
+![image](https://github.com/user-attachments/assets/8a30282a-27ec-4d80-8da9-c50354d0f6a7)
 
 
 Identify PMOS:
 
-![image](https://github.com/user-attachments/assets/091c0228-2a94-4d36-8810-aa47a2cc4fde)
+![image](https://github.com/user-attachments/assets/1905b288-133f-45b0-a660-b4f90ce448b5)
 
 
 
 Output Y:
 
-![image](https://github.com/user-attachments/assets/60110248-101f-43a6-8247-0078e1a866bb)
+![image](https://github.com/user-attachments/assets/a202049f-c1cb-4cb0-aed7-9456987e3e78)
 
 
 
 PMOS source connected to Vpwr:
 
-![image](https://github.com/user-attachments/assets/9b32ffea-ea80-446a-88c4-c64cc249fa87)
-
+![image](https://github.com/user-attachments/assets/b71f75b8-46a6-4990-ac1d-1e8ec66ea64a)
 
 
 
 NMOS source connected to Ground:
 
-![image](https://github.com/user-attachments/assets/ac6ebb5e-61b4-4cbb-91c3-3b1c49de4299)
+![image](https://github.com/user-attachments/assets/67dfd021-927d-485d-84fc-fab34191bc95)
 
 
 
@@ -3618,7 +3594,7 @@ ext2spice cthresh 0 rthresh 0
 ext2spice
 ```
 
-![image](https://github.com/user-attachments/assets/d340e134-afab-422c-8b38-ccc4095b44c6)
+![image](https://github.com/user-attachments/assets/b7f62436-630e-4e6f-ad3d-5a69a1b4c821)
 
 
 
