@@ -3468,17 +3468,17 @@ Rise transition time: time(slew_high_rise_thr) - time(slew_low_rise_thr)
 <summary>DAY 3</summary>
 
 
-
 ## AIM : Design library cell using Magic Layout and ngspice characterization
 
 **CMOS inverter ngspice simulations**
 
-Creating a SPICE Deck for a CMOS Inverter Simulation
+**Creating a SPICE Deck for a CMOS Inverter Simulation:**
 
-- Netlist Creation: Define the component connections (netlist) for a CMOS inverter circuit. Ensure each node is labeled appropriately for easy identification in the SPICE simulation. Typical nodes include input, output, ground, and supply nodes.
-- Device Sizing: Specify the Width-to-Length (W/L) ratios for both the PMOS and NMOS transistors.For proper operation, the PMOS width should be larger than the NMOS width, usually 2x to 3x, to balance the drive strength
-- Voltage Levels: Set gate and supply voltages, often in multiples of the transistor length. 
-- Node Naming: Assign node names to each connection point around the components to clearly identify each element in the SPICE netlist (e.g., VDD, GND, IN, OUT). This helps SPICE recognize each component and simulate the circuit effectively.
+- **Netlist Creation:** Define the component connections and label nodes (e.g., input, output, ground, supply) for easy identification in the SPICE simulation.
+- **Device Sizing:** Set the W/L ratios for PMOS and NMOS, with PMOS width typically 2-3 times larger than NMOS for balanced drive strength.
+- **Voltage Levels:** Set gate and supply voltages, often proportional to the transistor length.
+- **Node Naming:** Assign clear node names (e.g., VDD, GND, IN, OUT) for proper circuit identification in the SPICE simulation.
+
 
 ![image](https://github.com/user-attachments/assets/b61efcf4-cd1f-4080-b4dc-4606afc3a2e5)
 
@@ -3490,7 +3490,8 @@ Creating a SPICE Deck for a CMOS Inverter Simulation
 .op --- is the start of SPICE simulation operation where Vin sweeps from 0 to 2.5 with 0.5 steps
 tsmc_025um_model.mod  ----  model file which contains the technological parameters for the 0.25um NMOS and PMOS 
 ```
-Commands to simulate in SPICE:
+
+**Commands to simulate in SPICE:**
 
 ```
 source [filename].cir
@@ -3502,9 +3503,8 @@ plot out vs in
 
 ![image](https://github.com/user-attachments/assets/49f1ed28-c601-4954-a3aa-077a2c650650)
 
-The switching threshold Vm is like a critical voltage level for a component called a CMOS inverter. It's the point at which this inverter switches between sending out a "0" or a "1" in a computer chip. This the point where both PMOS and NMOS is in saturation or kind of turned on, and leakage current is high. If PMOS is thicker than NMOS, the CMOS will have higher switching threshold (1.2V vs 1V) while threshold will be lower when NMOS becomes thicker.
+The switching threshold (Vm) of a CMOS inverter is the voltage where it switches between outputting "0" or "1." At this point, both PMOS and NMOS are in saturation, and leakage current increases. If PMOS is thicker than NMOS, the threshold is higher (e.g., 1.2V vs 1V), and the threshold lowers as NMOS becomes thicker. In this state, both transistors are on, allowing direct current flow from VDD to ground (leakage current).
 
-At this point, both the transistors are in saturation region, means both are turned on and have high chances of current flowing directly from VDD to Ground called Leakage current.
 
 To find the switching threshold
 
@@ -3520,7 +3520,7 @@ Transient analysis is used for finding propagation delay. SPICE transient analys
 
 ![image](https://github.com/user-attachments/assets/af0c7120-e946-4c8f-95c2-c66b130ef415)
 
-The simulation commands:
+**The simulation commands:**
 
 ```
 Vin in 0 0 pulse 0 2.5 0 10p 10p 1n 2n 
@@ -3529,13 +3529,12 @@ Vin in 0 0 pulse 0 2.5 0 10p 10p 1n 2n
 .tran 10p 4n
 ```
 
-Result of SPICE simulation for transient analysis:
+**Result of SPICE simulation for transient analysis:**
 
 ![image](https://github.com/user-attachments/assets/16ca9925-420a-4417-b3fe-21e909750dff)
 
 
-
-Now, we clone the custom inverter
+**Now, we clone the custom inverter:**
 
 ```
 cd Desktop/work/tools/openlane_working_dir/openlane
@@ -3550,46 +3549,44 @@ magic -T sky130A.tech sky130_nikinv.mag &
 
 2. Load the custom inverter layout in magic and explore.
 Screenshot of custom inverter layout in magic
+
 ![image](https://github.com/user-attachments/assets/6197654e-4036-4e8e-9744-37fb9913d11b)
 
 
 
-NMOS and PMOS identified:
+**NMOS and PMOS identified:**
 
 ![image](https://github.com/user-attachments/assets/d24e7009-a71a-437f-94c8-8233c633f775)
 
-Inverter layout:
+**Inverter layout:**
 
-Identify NMOS:
+**Identify NMOS:**
 
 ![image](https://github.com/user-attachments/assets/8a30282a-27ec-4d80-8da9-c50354d0f6a7)
 
-
-Identify PMOS:
+**Identify PMOS:**
 
 ![image](https://github.com/user-attachments/assets/1905b288-133f-45b0-a660-b4f90ce448b5)
 
 
-
-Output Y:
+**Output Y:**
 
 ![image](https://github.com/user-attachments/assets/a202049f-c1cb-4cb0-aed7-9456987e3e78)
 
 
 
-PMOS source connected to Vpwr:
+**PMOS source connected to Vpwr:**
 
 ![image](https://github.com/user-attachments/assets/b71f75b8-46a6-4990-ac1d-1e8ec66ea64a)
 
 
 
-NMOS source connected to Ground:
+**NMOS source connected to Ground:**
 
 ![image](https://github.com/user-attachments/assets/67dfd021-927d-485d-84fc-fab34191bc95)
 
 
-
-Spice extraction of inverter in Magic. Run these in the tkcon window:
+**Spice extraction of inverter in Magic. Run these in the tkcon window:**
 
 ```
 # Check current directory
@@ -3602,15 +3599,15 @@ ext2spice
 ![image](https://github.com/user-attachments/assets/b7f62436-630e-4e6f-ad3d-5a69a1b4c821)
 
 
-
-To view the spice file:
+**To view the spice file:**
 ```
 ls -ltr
 gedit sky130_inv.spice
 ```
+
 ![image](https://github.com/user-attachments/assets/76206e7e-e77b-4110-9f44-19121694a854)
 
-The contents of spice file:
+**The contents of spice file:**
 
 ```
 * SPICE3 file created from sky130_nikinv.ext - technology: sky130A
@@ -3626,9 +3623,10 @@ C4 A VGND 0.45fF
 C5 VPWR VGND 0.781fF
 .ends
 ```
+
 ![image](https://github.com/user-attachments/assets/85e1bde0-e5ea-4d57-9ea7-e7eafe163076)
 
-Now modify the `sky130_nikinv.spice` file to find the transient respone:
+**Now modify the `sky130_nikinv.spice` file to find the transient respone:**
 
 ```
 * SPICE3 file created from sky130_nikinv.ext - technology: sky130A
@@ -3661,16 +3659,14 @@ run
 
 
 
-Now, simulate the spice netlist
+**Now, simulate the spice netlist:**
 ```
 ngspice sky130_nikinv.spice
 ```
 
 ![image](https://github.com/user-attachments/assets/1fb4c159-1479-45ec-9e9d-069543ecb7ce)
 
-
-
-To plot the waveform:
+**To plot the waveform:**
 
 ```
 plot y vs time a
@@ -3680,7 +3676,7 @@ plot y vs time a
 
 ![image](https://github.com/user-attachments/assets/f28c3bbf-e031-4859-9ff9-10fd71c34693)
 
-### Rise Transition time Calculation
+### Rise Transition time Calculation:
 
 Rise transition time = time taken to output to rise from 80% - Time taken for output to rise to 20% 20% oF output = 660mv 80% of output = 2.64v
 
@@ -3692,34 +3688,35 @@ Cell Rise delay: difference in time(50% output rise) to time(50% input fall)
 Cell Fall delay: difference in time(50% output fall) to time(50% input rise)
 
 
-
-20% Screenshots
+**20% Screenshots:**
 
 ![image](https://github.com/user-attachments/assets/5d594686-f1aa-4c80-9558-50cffcfc7111)
 
 
-80% Screenshots
+**80% Screenshots:**
 
 ![image](https://github.com/user-attachments/assets/13859724-a090-4096-b8ce-3c2014eee9d0)
 
 ![image](https://github.com/user-attachments/assets/da85b267-1e6c-4ab4-a844-6032fff7a69e)
 
 
-
 ```
 Rise Transition Time = 2.4722 - 2.176 = 0.29 ns = 29 ps
 ```
-80% fall ScreenShot
+
+**80% fall ScreenShot:**
 
 ![image](https://github.com/user-attachments/assets/caeb82ad-9008-4ee2-a520-fb86c766f60e)
 
 
-20% fall ScreenShot
+**20% fall ScreenShot:**
+
 ![image](https://github.com/user-attachments/assets/fa2e4eb7-3c47-441c-9f34-4d91df9665ad)
 
 ```
 Fall Transition Time = 4.09308 - 4.0506 = 0.04248 ns = 42.48 ps
 ```
+
 Rise Cell Delay : Time taken by output to rise to 50% − Time taken by input to fall to 50%
 50 % of 3.3V = 1.65V
 
@@ -3734,21 +3731,18 @@ Rise cell delay = 2.2072 - 2.1504 = 0.0568 ns = 56.80 ps
 Fall Cell Delay : Time taken by output to fall to 50% − Time taken by input to rise to 50%
 50 % of 3.3V = 1.65V
 
-50% Screenshots
+**50% Screenshots:**
 
 ![image](https://github.com/user-attachments/assets/abfc51f1-bb82-4b35-ac47-3b85fdd0f45e)
-
 
 
 ```
 Fall cell delay = 4.07515 - 4.05061 = 0.02454 ns = 24.54 ps
 ```
 
-
 Magic Tool options and DRC Rules:
 
-
-Now, go to home directory and run the below commands:
+**Now, go to home directory and run the below commands:**
 
 ```
 cd
@@ -3763,7 +3757,7 @@ magic -d XR &
 ![image](https://github.com/user-attachments/assets/1fe066f0-f623-4eb0-ae83-1a0b9a53016d)
 
 
-First load the poly file by load poly.mag on tkcon window.
+**First load the poly file by load poly.mag on tkcon window:**
 
 ![image](https://github.com/user-attachments/assets/526124f5-b92c-4cdd-a122-1dfa56b42a61)
 
@@ -3800,7 +3794,7 @@ drc why
  </details>
 
 <details>
-<summary>DAy 4 Pre-layout timing analysis and importance of good clock tree</summary>
+<summary>Day 4 Pre-layout timing analysis and importance of good clock tree</summary>
 <br>
 
 
