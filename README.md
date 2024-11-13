@@ -3603,17 +3603,12 @@ To view the spice file:
 ls -ltr
 gedit sky130_inv.spice
 ```
-![image](https://github.com/user-attachments/assets/44346a5d-461b-4e20-9322-d6c9bc845033)
-
-
 ![image](https://github.com/user-attachments/assets/76206e7e-e77b-4110-9f44-19121694a854)
-
-
 
 The contents of spice file:
 
 ```
-* SPICE3 file created from sky130_inv.ext - technology: sky130A
+* SPICE3 file created from sky130_nikinv.ext - technology: sky130A
 .option scale=10n
 .subckt sky130_inv A Y VPWR VGND
 X0 Y A VGND VGND sky130_fd_pr__nfet_01v8 ad=1.37n pd=0.148m as=1.37n ps=0.148m w=35 l=23
@@ -3626,11 +3621,12 @@ C4 A VGND 0.45fF
 C5 VPWR VGND 0.781fF
 .ends
 ```
+![image](https://github.com/user-attachments/assets/85e1bde0-e5ea-4d57-9ea7-e7eafe163076)
 
-Now modify the `sky130_inv.spice` file to find the transient respone:
+Now modify the `sky130_nikinv.spice` file to find the transient respone:
 
 ```
-* SPICE3 file created from sky130_inv.ext - technology: sky130A
+* SPICE3 file created from sky130_nikinv.ext - technology: sky130A
 .option scale=0.01u
 .include ./libs/pshort.lib
 .include ./libs/nshort.lib
@@ -3662,7 +3658,7 @@ run
 
 Now, simulate the spice netlist
 ```
-ngspice sky130_inv.spice
+ngspice sky130_nikinv.spice
 ```
 
 ![image](https://github.com/user-attachments/assets/1fb4c159-1479-45ec-9e9d-069543ecb7ce)
@@ -3675,12 +3671,13 @@ To plot the waveform:
 plot y vs time a
 ```
 
-![image](https://github.com/user-attachments/assets/9e54d5d8-6bfe-46d2-8091-524197520399)
+![image](https://github.com/user-attachments/assets/4879da61-3c19-4a5e-b740-ca731e88c524)
 
+![image](https://github.com/user-attachments/assets/f28c3bbf-e031-4859-9ff9-10fd71c34693)
 
-![image](https://github.com/user-attachments/assets/54ebdbb3-d666-4b85-8ae2-e8d457f4bde5)
+### Rise Transition time Calculation
 
-
+Rise transition time = time taken to output to rise from 80% - Time taken for output to rise to 20% 20% oF output = 660mv 80% of output = 2.64v
 
 Using this transient response, we will now characterize the cell's slew rate and propagation delay:
 
@@ -3690,19 +3687,22 @@ Cell Rise delay: difference in time(50% output rise) to time(50% input fall)
 Cell Fall delay: difference in time(50% output fall) to time(50% input rise)
 
 
-20 % Rise Screenshot
 
-![image](https://github.com/user-attachments/assets/0bb95fb2-617d-4180-9a27-5756c5eb44b6)
+20% Screenshots
+
+![image](https://github.com/user-attachments/assets/5d594686-f1aa-4c80-9558-50cffcfc7111)
 
 
-80 % Rise  Screenshot
+80% Screenshots
 
-![image](https://github.com/user-attachments/assets/7721e3d0-c558-4b91-a189-39045f5b1b02)
+![image](https://github.com/user-attachments/assets/13859724-a090-4096-b8ce-3c2014eee9d0)
+
+![image](https://github.com/user-attachments/assets/da85b267-1e6c-4ab4-a844-6032fff7a69e)
 
 
 
 ```
-Rise Transition Time = 2.23976 - 2.18008 = 0.05968 ns = 59.68 ps
+Rise Transition Time = 2.4722 - 2.176 = 0.29 ns = 29 ps
 ```
 80% fall ScreenShot
 
@@ -3755,9 +3755,8 @@ gvim .magicrc
 magic -d XR &
 ```
 
-![image](https://github.com/user-attachments/assets/44478c52-ecef-4ae1-ad9a-ec171260bb0d)
-
-![image](https://github.com/user-attachments/assets/f297e7c9-332c-4228-bf3f-60e092996719)
+![image](https://github.com/user-attachments/assets/e1f78694-b217-471a-8946-19e608daa74d)
+![image](https://github.com/user-attachments/assets/79209999-3fb9-4bf9-89ac-43b7fcb4da38)
 
 
 First load the poly file by load poly.mag on tkcon window.
