@@ -3755,8 +3755,7 @@ gvim .magicrc
 magic -d XR &
 ```
 
-![image](https://github.com/user-attachments/assets/e1f78694-b217-471a-8946-19e608daa74d)
-![image](https://github.com/user-attachments/assets/79209999-3fb9-4bf9-89ac-43b7fcb4da38)
+![image](https://github.com/user-attachments/assets/1fe066f0-f623-4eb0-ae83-1a0b9a53016d)
 
 
 First load the poly file by load poly.mag on tkcon window.
