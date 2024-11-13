@@ -3021,6 +3021,7 @@ The total negative slack and worst negative slacks are provided in the detailed 
 <summary>DAY 1</summary>
 
 
+
 **QFN-48 Package:** The QFN-48 is a leadless integrated circuit package featuring 48 connection pads along its edges. It provides excellent thermal and electrical performance in a small, compact design, making it well-suited for high-density applications.
 
 ![image](https://github.com/user-attachments/assets/2237a9ef-dc38-444f-97a5-ceb4e983c8f0)
@@ -3795,10 +3796,10 @@ drc why
  </details>
 
 <details>
-<summary>Day 4 Pre-layout timing analysis and importance of good clock tree</summary>
+<summary>Day 4</summary>
 <br>
 
-
+ ## AIM: Pre-layout timing analysis and importance of good clock tree:
 
  
  
