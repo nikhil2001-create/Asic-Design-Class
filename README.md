@@ -3459,6 +3459,363 @@ Rise transition time: time(slew_high_rise_thr) - time(slew_low_rise_thr)
 
 
 
+<details>
+<summary>DAY 3</summary>
 
+
+
+## AIM : Design library cell using Magic Layout and ngspice characterization
+
+**CMOS inverter ngspice simulations**
+
+Creating a SPICE Deck for a CMOS Inverter Simulation
+
+- Netlist Creation: Define the component connections (netlist) for a CMOS inverter circuit. Ensure each node is labeled appropriately for easy identification in the SPICE simulation. Typical nodes include input, output, ground, and supply nodes.
+- Device Sizing: Specify the Width-to-Length (W/L) ratios for both the PMOS and NMOS transistors.For proper operation, the PMOS width should be larger than the NMOS width, usually 2x to 3x, to balance the drive strength
+- Voltage Levels: Set gate and supply voltages, often in multiples of the transistor length. 
+- Node Naming: Assign node names to each connection point around the components to clearly identify each element in the SPICE netlist (e.g., VDD, GND, IN, OUT). This helps SPICE recognize each component and simulate the circuit effectively.
+
+![image](https://github.com/user-attachments/assets/b61efcf4-cd1f-4080-b4dc-4606afc3a2e5)
+
+
+```
+***syntax for PMOS and NMOS desription***
+[component name] [drain] [gate] [source] [substrate] [transistor type] W=[width] L=[length]
+ ***simulation commands***
+.op --- is the start of SPICE simulation operation where Vin sweeps from 0 to 2.5 with 0.5 steps
+tsmc_025um_model.mod  ----  model file which contains the technological parameters for the 0.25um NMOS and PMOS 
+```
+Commands to simulate in SPICE:
+
+```
+source [filename].cir
+run
+setplot 
+dc1 
+plot out vs in 
+```
+
+![image](https://github.com/user-attachments/assets/49f1ed28-c601-4954-a3aa-077a2c650650)
+
+The switching threshold Vm is like a critical voltage level for a component called a CMOS inverter. It's the point at which this inverter switches between sending out a "0" or a "1" in a computer chip. This the point where both PMOS and NMOS is in saturation or kind of turned on, and leakage current is high. If PMOS is thicker than NMOS, the CMOS will have higher switching threshold (1.2V vs 1V) while threshold will be lower when NMOS becomes thicker.
+
+At this point, both the transistors are in saturation region, means both are turned on and have high chances of current flowing directly from VDD to Ground called Leakage current.
+
+To find the switching threshold
+
+```
+Vin in 0 2.5
+*** Simulation Command ***
+.op
+.dc Vin 0 2.5 0.05
+```
+![image](https://github.com/user-attachments/assets/61d07ded-adf6-4b6d-8e79-936512557edd)
+
+Transient analysis is used for finding propagation delay. SPICE transient analysis uses pulse input shown below:
+
+![image](https://github.com/user-attachments/assets/af0c7120-e946-4c8f-95c2-c66b130ef415)
+
+The simulation commands:
+
+```
+Vin in 0 0 pulse 0 2.5 0 10p 10p 1n 2n 
+*** Simulation Command ***
+.op
+.tran 10p 4n
+```
+
+Result of SPICE simulation for transient analysis:
+
+![image](https://github.com/user-attachments/assets/16ca9925-420a-4417-b3fe-21e909750dff)
+
+
+
+Now, we clone the custom inverter
+
+```
+cd Desktop/work/tools/openlane_working_dir/openlane
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+cd vsdstdcelldesign
+cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
+ls
+magic -T sky130A.tech sky130_inv.mag &
+```
+
+![image](https://github.com/user-attachments/assets/2eea5039-f9c8-4dd2-a443-ca761a4e8053)
+
+
+
+
+![image](https://github.com/user-attachments/assets/c966cf08-b528-4f04-95a5-5dd859ffbde6)
+
+
+
+
+**Inception of Layout CMOS fabrication process**
+
+The 16-mask CMOS design fabrication process:
+
+1. Substrate Preparation: The process begins with preparing a silicon wafer as the foundational substrate for the circuit.
+2. N-Well Formation: The N-well regions are created on the substrate by introducing impurities, typically phosphorus, through ion implantation or diffusion
+3. P-Well Formation: Similar to the N-well formation, P-well regions are created using ion implantation or diffusion with boron or other suitable dopants.
+4. Gate Oxide Deposition: A thin silicon dioxide layer is deposited to form the gate oxide, which insulates the gate from the channel.
+5. Poly-Silicon Deposition: A layer of polysilicon is deposited on the gate oxide to serve as the gate electrode.
+6. Poly-Silicon Masking and Etching: A photoresist mask defines areas where polysilicon should remain, and etching removes exposed portions.
+7. N-Well Masking and Implantation: A photoresist mask is used to define the areas where the N-well regions should be preserved. Phosphorus or other suitable impurities are then implanted into the exposed regions.
+8. P-Well Masking and Implantation: Similarly, a photoresist mask is used to define the areas where the P-well regions should be preserved. Boron or other suitable impurities are implanted into the exposed regions.
+9. Source/Drain Implantation: Using photoresist masks, dopants are implanted to create source and drain regions (e.g., arsenic for NMOS, boron for PMOS).
+10. Gate Formation: The gate electrode is defined by etching the poly-silicon layer using a photoresist mask.
+11. Source/Drain Masking and Etching: A photoresist mask is applied to define the source and drain regions followed by etching to remove the oxide layer in those areas.
+12. Contact/Via Formation: Contact holes or vias are etched through the oxide layer to expose the underlying regions, such as the source/drain regions or poly-silicon gates.
+13. Metal Deposition: A layer of metal, typically aluminum or copper, is deposited on the wafer surface to form the interconnects.
+14. Metal Masking and Etching: A photoresist mask is used to define the metal interconnects, and etching is performed to remove the exposed metal, leaving behind the desired interconnect patterns.
+15. Passivation Layer Deposition: A protective layer, often made of silicon dioxide or nitride, is deposited to isolate and shield the metal interconnects.
+16. Final Testing and Packaging: The fabricated wafer undergoes rigorous testing to ensure the functionality of the integrated circuits. The working chips are then separated, packaged, and prepared for use in various electronic devices.
+
+![image](https://github.com/user-attachments/assets/d24e7009-a71a-437f-94c8-8233c633f775)
+
+Inverter layout:
+
+Identify NMOS:
+
+![image](https://github.com/user-attachments/assets/1c05d6ac-3684-401e-971e-afeacb023c97)
+
+
+
+Identify PMOS:
+
+![image](https://github.com/user-attachments/assets/091c0228-2a94-4d36-8810-aa47a2cc4fde)
+
+
+
+Output Y:
+
+![image](https://github.com/user-attachments/assets/60110248-101f-43a6-8247-0078e1a866bb)
+
+
+
+PMOS source connected to Vpwr:
+
+![image](https://github.com/user-attachments/assets/9b32ffea-ea80-446a-88c4-c64cc249fa87)
+
+
+
+
+NMOS source connected to Ground:
+
+![image](https://github.com/user-attachments/assets/ac6ebb5e-61b4-4cbb-91c3-3b1c49de4299)
+
+
+
+Spice extraction of inverter in Magic. Run these in the tkcon window:
+
+```
+# Check current directory
+pwd
+extract all
+ext2spice cthresh 0 rthresh 0
+ext2spice
+```
+
+![image](https://github.com/user-attachments/assets/d340e134-afab-422c-8b38-ccc4095b44c6)
+
+
+
+To view the spice file:
+```
+ls -ltr
+gedit sky130_inv.spice
+```
+![image](https://github.com/user-attachments/assets/44346a5d-461b-4e20-9322-d6c9bc845033)
+
+
+![image](https://github.com/user-attachments/assets/76206e7e-e77b-4110-9f44-19121694a854)
+
+
+
+The contents of spice file:
+
+```
+* SPICE3 file created from sky130_inv.ext - technology: sky130A
+.option scale=10n
+.subckt sky130_inv A Y VPWR VGND
+X0 Y A VGND VGND sky130_fd_pr__nfet_01v8 ad=1.37n pd=0.148m as=1.37n ps=0.148m w=35 l=23
+X1 Y A VPWR VPWR sky130_fd_pr__pfet_01v8 ad=1.44n pd=0.152m as=1.52n ps=0.156m w=37 l=23
+C0 VPWR Y 0.11fF
+C1 A Y 0.754fF
+C2 A VPWR 0.277fF
+C3 Y VGND 0.279fF
+C4 A VGND 0.45fF
+C5 VPWR VGND 0.781fF
+.ends
+```
+
+Now modify the `sky130_inv.spice` file to find the transient respone:
+
+```
+* SPICE3 file created from sky130_inv.ext - technology: sky130A
+.option scale=0.01u
+.include ./libs/pshort.lib
+.include ./libs/nshort.lib
+//.subckt sky130_inv A Y VPWR VGND
+M1000 Y A VGND VGND nshort_model.0 w=35 l=23
++  ad=1.44n pd=0.152m as=1.37n ps=0.148m
+M1001 Y A VPWR VPWR pshort_model.0 w=37 l=23
++  ad=1.44n pd=0.152m as=1.52n ps=0.156m
+VDD VPWR 0 3.3V
+VSS VGND 0 0V
+Va A VGND PULSE(0V 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+C0 A VPWR 0.0774f
+C1 VPWR Y 0.117f
+C2 A Y 0.0754f
+C3 Y VGND 2f
+C4 A VGND 0.45f
+C5 VPWR VGND 0.781f
+//.ends
+.tran 1n 20n
+.control
+run
+.endc
+.end
+```
+
+![image](https://github.com/user-attachments/assets/5ef34188-c884-475c-a149-85bb87ff4f46)
+
+
+
+Now, simulate the spice netlist
+```
+ngspice sky130_inv.spice
+```
+
+![image](https://github.com/user-attachments/assets/1fb4c159-1479-45ec-9e9d-069543ecb7ce)
+
+
+
+To plot the waveform:
+
+```
+plot y vs time a
+```
+
+![image](https://github.com/user-attachments/assets/9e54d5d8-6bfe-46d2-8091-524197520399)
+
+
+![image](https://github.com/user-attachments/assets/54ebdbb3-d666-4b85-8ae2-e8d457f4bde5)
+
+
+
+Using this transient response, we will now characterize the cell's slew rate and propagation delay:
+
+Rise Transition: Time taken for the output to rise from 20% to 80% of max value
+Fall Transition: Time taken for the output to fall from 80% to 20% of max value
+Cell Rise delay: difference in time(50% output rise) to time(50% input fall)
+Cell Fall delay: difference in time(50% output fall) to time(50% input rise)
+
+
+20 % Rise Screenshot
+
+![image](https://github.com/user-attachments/assets/0bb95fb2-617d-4180-9a27-5756c5eb44b6)
+
+
+80 % Rise  Screenshot
+
+![image](https://github.com/user-attachments/assets/7721e3d0-c558-4b91-a189-39045f5b1b02)
+
+
+
+```
+Rise Transition Time = 2.23976 - 2.18008 = 0.05968 ns = 59.68 ps
+```
+80% fall ScreenShot
+
+![image](https://github.com/user-attachments/assets/caeb82ad-9008-4ee2-a520-fb86c766f60e)
+
+
+20% fall ScreenShot
+![image](https://github.com/user-attachments/assets/fa2e4eb7-3c47-441c-9f34-4d91df9665ad)
+
+```
+Fall Transition Time = 4.09308 - 4.0506 = 0.04248 ns = 42.48 ps
+```
+Rise Cell Delay : Time taken by output to rise to 50% − Time taken by input to fall to 50%
+50 % of 3.3V = 1.65V
+
+50% Screenshots
+
+![image](https://github.com/user-attachments/assets/176fd468-c02a-469d-b14f-ee9a58bf1f2e)
+
+
+```
+Rise cell delay = 2.2072 - 2.1504 = 0.0568 ns = 56.80 ps
+```
+Fall Cell Delay : Time taken by output to fall to 50% − Time taken by input to rise to 50%
+50 % of 3.3V = 1.65V
+
+50% Screenshots
+
+![image](https://github.com/user-attachments/assets/abfc51f1-bb82-4b35-ac47-3b85fdd0f45e)
+
+
+
+```
+Fall cell delay = 4.07515 - 4.05061 = 0.02454 ns = 24.54 ps
+```
+
+
+Magic Tool options and DRC Rules:
+
+
+Now, go to home directory and run the below commands:
+
+```
+cd
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+tar xfz drc_tests.tgz
+cd drc_tests
+ls -al
+gvim .magicrc
+magic -d XR &
+```
+
+![image](https://github.com/user-attachments/assets/44478c52-ecef-4ae1-ad9a-ec171260bb0d)
+
+![image](https://github.com/user-attachments/assets/f297e7c9-332c-4228-bf3f-60e092996719)
+
+
+First load the poly file by load poly.mag on tkcon window.
+
+![image](https://github.com/user-attachments/assets/526124f5-b92c-4cdd-a122-1dfa56b42a61)
+
+We can see that Poly.9 is incorrect.
+
+Screenshot of poly rules
+
+![image](https://github.com/user-attachments/assets/a8260270-a35d-4104-9929-3a057b81d19c)
+
+Add the below commands in the sky130A.tech
+
+![image](https://github.com/user-attachments/assets/eda07ffc-6d4c-438d-9e49-31deb982140d)
+
+
+![image](https://github.com/user-attachments/assets/8e7d7af0-89c4-484d-b3fb-63d4a3628475)
+
+
+Run the commands in tkcon window:
+
+```
+tech load sky130A.tech
+drc check
+drc why
+```
+
+![image](https://github.com/user-attachments/assets/29f72049-28e6-4d87-ac46-29e9bbe97241)
+
+
+
+
+
+
+ 
  </details>
 </details>
