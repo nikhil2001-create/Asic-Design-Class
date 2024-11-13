@@ -3541,7 +3541,8 @@ ls
 magic -T sky130A.tech sky130_inv.mag &
 ```
 
-![image](https://github.com/user-attachments/assets/2eea5039-f9c8-4dd2-a443-ca761a4e8053)
+![image](https://github.com/user-attachments/assets/8993ddd9-58fb-4231-b568-0f6f9773db42)
+
 
 
 
@@ -3818,4 +3819,16 @@ drc why
 
  
  </details>
+
+<details>
+<summary>DAy 4 Pre-layout timing analysis and importance of good clock tree</summary>
+<br>
+
+
+
+ 
+ 
+ 
+ </details>
+
 </details>
