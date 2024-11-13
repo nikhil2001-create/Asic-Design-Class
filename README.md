@@ -3025,7 +3025,7 @@ The total negative slack and worst negative slacks are provided in the detailed 
 <summary>DAY 1</summary>
 
 
-**QFN-48 Package:** A Quad Flat No-leads (QFN) 48 package is a leadless IC package with 48 connection pads around the perimeter. It offers good thermal and electrical performance in a compact form, making it ideal for high-density applications.
+**QFN-48 Package:** The QFN-48 is a leadless integrated circuit package featuring 48 connection pads along its edges. It provides excellent thermal and electrical performance in a small, compact design, making it well-suited for high-density applications.
 
 ![image](https://github.com/user-attachments/assets/2237a9ef-dc38-444f-97a5-ceb4e983c8f0)
 
@@ -3034,12 +3034,12 @@ The total negative slack and worst negative slacks are provided in the detailed 
 
 ![image](https://github.com/user-attachments/assets/7503bcea-4654-4bc9-b77a-de9ced7929be)
 
+**Pads:** Metallic areas on a chip or package for connecting internal circuitry to external signals.
 
-**Pads:** Small metallic areas on a chip or package used to connect internal circuitry to external connections, enabling signals to be transferred to and from the IC.
+**Core:** The central part of a chip with the processing unit and functional logic, optimized for performance and power.
 
-**Core:** The central part of a chip containing the main processing unit and functional logic, often optimized for power and performance.
+**Die:** The individual IC section of a silicon wafer, containing all active circuits before packaging.
 
-**Die:** The section of a silicon wafer containing an individual IC before it is packaged, housing all active circuits and elements for the chip's functions.
 
 ![image](https://github.com/user-attachments/assets/cfa2c482-59c5-4ad5-b74c-a027bfdf16b8)
 
@@ -3051,11 +3051,8 @@ The total negative slack and worst negative slacks are provided in the detailed 
 
 **From Software Applications to Hardware Flow**
 
-To run an application on hardware, several processes take place. First, the application enters a layer known as the system software, which prepares it for execution by translating the application program into binary format, understandable by hardware. Key components within system software include the Operating System (OS), Compiler, and Assembler.
+To run an application on hardware, system software prepares it by translating the program into binary. The process starts with the OS breaking down high-level code (e.g., C, Java), which is then passed to a compiler for conversion into low-level instructions specific to the hardware. The assembler further converts these instructions into binary machine code, which is executed by the hardware.
 
-The process starts with the OS, which breaks down application functions written in high-level languages such as C, C++, Java, or Visual Basic. These functions are passed to a suitable compiler, which translates them into low-level instructions. The syntax and format of these instructions are tailored to the specific hardware architecture in use.
-
-Next, the assembler converts these hardware-specific instructions into binary format, known as machine language. This binary code is then fed to the hardware, enabling it to perform specific tasks as defined by the received instructions.
 
 ![image](https://github.com/user-attachments/assets/14788472-7c91-4860-82c6-2bccb49f91d2)
 
@@ -3067,7 +3064,8 @@ For the above stopwatch the below figure shows the input and output of the compi
 
 ![image](https://github.com/user-attachments/assets/63f2e771-eed8-4953-b501-dd9ff0d209f7)
 
-The compiler generates architecture-specific instructions, while the assembler produces the corresponding binary patterns. To execute these instructions on hardware, an RTL (written in a Hardware Description Language) is used to interpret and implement the instructions. This RTL design is then synthesized into a netlist, represented as interconnected logic gates. Finally, the netlist undergoes physical design implementation to be fabricated onto the chip.
+The compiler creates architecture-specific instructions, and the assembler translates them into binary. An RTL in HDL interprets these instructions for hardware, then synthesizes them into a netlist of logic gates. The netlist is then implemented in physical design for chip fabrication.
+
 
 ![image](https://github.com/user-attachments/assets/ae0a287d-8bb4-4535-b6b0-5b1baf09008d)
 
@@ -3085,38 +3083,40 @@ The compiler generates architecture-specific instructions, while the assembler p
 
 ![image](https://github.com/user-attachments/assets/1f2a5455-d83e-46fe-92e3-531ade2a9add)
 
-- **RTL Design:** Describes the circuit's functional behavior using HDLs like Verilog or VHDL, defining its logic and data paths.
+- **RTL Design**: Describes circuit behavior using HDLs (e.g., Verilog, VHDL), defining logic and data paths.
 
-- **RTL Synthesis:** Converts RTL code to a gate-level netlist which is a collection of standard cells like AND gates, flip-flops, and multiplexers by mapping it to standard cells and optimizing for area, power, and timing. 
+- **RTL Synthesis**: Transforms RTL code into a gate-level netlist of standard cells (e.g., AND gates, flip-flops), optimizing for area, power, and timing.
 
-- **Floor and Power Planning:** Partitions chip area, places major components, and defines power grid and I/O placement to optimize area, power distribution, and signal flow. This step optimizes the physical layout, aiming to reduce power consumption and improve signal integrity by considering the placement of I/O pads and power distribution cells
+- **Floor and Power Planning**: Allocates chip area, positions key components, and designs the power grid for efficient layout, power distribution, and signal integrity.
 
-- **Placement:** Assigns physical locations to cells, aiming to minimize wirelength, reduce signal delay, and meet design constraints. The placement tool carefully arranges the cells to balance the overall chip design for optimal performance and area utilization.
+- **Placement**: Positions cells to reduce wirelength, manage signal delay, and meet design constraints, enhancing performance and area usage.
 
-- **Clock Tree Synthesis (CTS):** Clock Tree Synthesis (CTS) is a critical step that focuses on creating an optimized clock distribution network. CTS ensures the clock is distributed evenly to all flip-flops and registers. It builds an optimized clock network to balance clock signal distribution and reduce clock skew.
+- **Clock Tree Synthesis (CTS)**: Builds an optimized clock distribution network, ensuring balanced clock signals and minimal skew across flip-flops and registers.
 
-- **Routing:** Connects components based on placement, optimizing wire paths to ensure signal integrity, minimize congestion, and meet design rules.
+- **Routing**: Connects placed cells with optimized wire paths, maintaining signal integrity and adhering to design rules.
 
-- **Sign-off:** Final verification stage, ensuring the design meets functionality, performance, power, and reliability targets. Timing analysis is performed to check setup and hold times, power analysis ensures the design doesn’t exceed power limits, and physical verification checks ensure that the layout meets manufacturing rules. This stage confirms the design is ready for fabrication.
+- **Sign-off**: Final verification to ensure design meets performance, power, and reliability criteria, covering timing, power, and physical checks before fabrication.
 
-- **GDSII File Generation:** Creates the GDSII file containing the complete layout details needed for chip fabrication. This file represents the final physical design and is used by manufacturers to create the photomasks required for chip production. The GDSII file serves as the blueprint for the actual fabrication of the chip.
+- **GDSII File Generation**: Produces the GDSII file with layout details for manufacturing, serving as the blueprint for chip fabrication.
+
 
 **OpenLane ASIC Flow:**
 
 ![image](https://github.com/user-attachments/assets/cdd04b14-fbfe-44a3-8d4e-8fbfe443bd74)
 
-1. RTL Synthesis, Technology Mapping, and Formal Verification: The tools used are Yosys (for RTL synthesis), ABC (for technology mapping and formal verification).
-2. Static Timing Analysis: The tools used are OpenSTA (for static timing analysis).
-3. Floor Planning: The tools used are init_fp (initial floorplanning), ioPlacer (I/O placement), pdn (power distribution network planning), tapcell (tap cell insertion).
-4. Placement: The tools used are RePLace (global placement), Resizer (optional for resizing cells), OpenPhySyn (formerly used for placement), OpenDP (detailed placement).
-5. Clock Tree Synthesis: The tools used are TritonCTS (for clock tree synthesis).
-6. Fill Insertion: The tools used are OpenDP (for filler placement).
-7. Routing: The tools used for global routing are FastRoute or CU-GR (formerly used) and for the detailed routing , we use TritonRoute (for detailed routing) or DR-CU (formerly used).
-8. SPEF Extraction: The tools used are OpenRCX (or SPEF-Extractor, formerly used) for Standard Parasitic Exchange Format (SPEF) extraction.
-9. GDSII Streaming Out: The tools used are Magic and KLayout (for viewing and editing GDSII files).
-10. Design Rule Checking (DRC) Checks: The tools used are Magic and KLayout (for DRC checks).
-11. Layout vs. Schematic (LVS) Check: The tools used are Netgen (for LVS checks).
-12. Antenna Checks: The tools used are Magic (for antenna checks).
+1. **RTL Synthesis, Technology Mapping, and Formal Verification**: Yosys (RTL synthesis), ABC (technology mapping, formal verification).
+2. **Static Timing Analysis**: OpenSTA.
+3. **Floor Planning**: init_fp (floorplanning), ioPlacer (I/O placement), pdn (power network planning), tapcell (tap cell insertion).
+4. **Placement**: RePLace (global placement), Resizer (optional resizing), OpenPhySyn (former placement tool), OpenDP (detailed placement).
+5. **Clock Tree Synthesis**: TritonCTS.
+6. **Fill Insertion**: OpenDP (filler placement).
+7. **Routing**: FastRoute or CU-GR (global), TritonRoute or DR-CU (detailed).
+8. **SPEF Extraction**: OpenRCX (formerly SPEF-Extractor).
+9. **GDSII Streaming Out**: Magic, KLayout (GDSII viewing/editing).
+10. **DRC Checks**: Magic, KLayout.
+11. **LVS Check**: Netgen.
+12. **Antenna Checks**: Magic.
+
 
 **OpenLANE Directory structure**
 
@@ -3280,7 +3280,10 @@ Flop ratio       =   Number of D Flip flops     =     1613      =      0.1084
 
 ## AIM : Good floorplan vs bad floorplan and introduction to library cells
 
-**Utilization Factor and Aspect Ratio**: In IC floor planning, utilization factor and aspect ratio are key parameters. The utilization factor is the ratio of the area occupied by the netlist to the total core area. While a perfect utilization of 1 (100%) is ideal, practical designs target a factor of 0.5 to 0.6 to allow space for buffer zones, routing channels, and future adjustments. The aspect ratio, defined as height divided by width, indicates the chip’s shape; an aspect ratio of 1 denotes a square, while other values result in a rectangular layout. The aspect ratio is chosen based on functional, packaging, and manufacturing needs.
+**Utilization Factor and Aspect Ratio**: 
+
+In IC floor planning, the utilization factor (netlist area to total core area) ideally ranges from 0.5 to 0.6, allowing space for routing and adjustments. The aspect ratio (height/width) defines chip shape, with 1 indicating a square. Aspect ratio is chosen based on functional, packaging, and manufacturing requirements.
+
 
 ```
 Utilisation Factor =  Area occupied by netlist
@@ -3292,17 +3295,18 @@ Aspect Ratio =  Height
                 Width
 ```
 
-**Pre-placed cells** : Pre-placed cells are essential functional blocks, such as memory, custom processors, and analog circuits, positioned manually in fixed locations. These blocks are crucial for the chip’s performance and remain fixed during placement and routing to preserve their functionality and layout integrity.
+**Pre-placed Cells**: Key functional blocks like memory and analog circuits are manually positioned and kept fixed during placement to ensure performance and layout integrity.
 
-**Decoupling Capacitors** : Decoupling capacitors are placed near logic circuits to stabilize power supply voltages during transient events. Acting as local energy reserves, they help reduce voltage fluctuations, crosstalk, and electromagnetic interference (EMI), ensuring reliable power delivery to sensitive circuits.
+**Decoupling Capacitors**: Placed near logic circuits, these capacitors stabilize power supply voltages, reduce voltage fluctuations, and improve EMI control.
 
-**Power Planning**: A robust power planning strategy includes creating a power and ground mesh to distribute VDD and VSS evenly across the chip. This setup ensures stable power delivery, minimizes voltage drops, and improves overall efficiency. Multiple power and ground points reduce the risk of instability and voltage drop issues, supporting the design’s power needs effectively.
+**Power Planning**: Establishes a power/ground mesh to evenly distribute VDD and VSS, minimizing voltage drops and ensuring stable, efficient power delivery across the chip.
 
-**Pin Placement**: Pin placement (I/O planning) is crucial for functionality and reliability. Strategic pin assignment minimizes signal degradation, preserves data integrity, and helps manage heat dissipation. Proper positioning of power and ground pins supports thermal management and enhances signal strength, contributing to overall system stability and manufacturability.
+**Pin Placement**: Strategic pin assignment minimizes signal degradation, manages heat, and supports stability and manufacturability through optimized power and ground pin positioning.
 
-Floorplaning using OpenLANE:
 
-Run the following commands:
+**Floorplaning using OpenLANE:**
+
+**Run the following commands:**
 
 ```
 cd Desktop/work/tools/openlane_working_dir/openlane
@@ -3335,7 +3339,7 @@ gedit picorv32a.floorplan.def
 
 
 
-According to floorplan definition:
+**According to floorplan definition:**
 
 1000 Unit Distance = 1 Micron  
 
@@ -3364,24 +3368,24 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 
 
-Decap and Tap Cells:
+**Decap and Tap Cells:**
 
 ![image](https://github.com/user-attachments/assets/19e08d4e-ab33-474a-985a-fc34b5625a5b)
 
 
 
-Unplaces standard cells at origin:
+**Unplaces standard cells at origin:**
 
 ![image](https://github.com/user-attachments/assets/190230b7-9768-49fd-aea9-df74763178df)
 
 
-Diagonally equidistant Tap cells
+**Diagonally equidistant Tap cells:**
 
 ![image](https://github.com/user-attachments/assets/d2c0c9ab-c979-48ec-bd8a-881e3db8fc65)
 
 
 
-Command to run placement:
+**Command to run placement:**
 
 ```
 run_placement
@@ -3391,7 +3395,7 @@ run_placement
 
 
 
-To view the placement in magic:
+**To view the placement in magic:**
 
 ```
 cd designs/picorv32a/runs/13-11_12-40/results/placement/
@@ -3407,25 +3411,29 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 **Cell design and Characterization Flow**
 
-Library is a place where we get information about every cell. It has differents cells with different size, functionality,threshold voltages. There is a typical cell design flow steps.
+A cell library provides detailed information on cells, varying in size, functionality, and threshold voltage.
 
-Inputs : PDKS(process design kit) : DRC & LVS, SPICE Models, library & user-defined specs.
-Design Steps :Circuit design, Layout design (Art of layout Euler's path and stick diagram), Extraction of parasitics, Characterization (timing, noise, power).
-Outputs: CDL (circuit description language), LEF, GDSII, extracted SPICE netlist (.cir), timing, noise and power .lib files
+**Cell Design Flow:**
+
+- **Inputs:** PDKs (DRC, LVS), SPICE models, library specs, user-defined specs.
+- **Design Steps:** Circuit design, layout design (Euler’s path, stick diagrams), parasitic extraction, and characterization (timing, noise, power).
+- **Outputs:** CDL, LEF, GDSII, extracted SPICE netlist (.cir), timing, noise, and power `.lib` files.
+
 
 **Standard Cell Characterization Flow**
 
-A typical standard cell characterization flow that is followed in the industry includes the following steps:
+**Standard Cell Characterization Flow:**
 
-- Read in the models and tech files
-- Read extracted spice Netlist
-- Recognise behavior of the cells
-- Read the subcircuits
-- Attach power sources
-- Apply stimulus to characterization setup
-- Provide neccesary output capacitance loads
-- Provide neccesary simulation commands
-- Now all these 8 steps are fed in together as a configuration file to a characterization software called GUNA. This software generates timing, noise, power models. These .libs are classified as Timing characterization, power characterization and noise characterization.
+1. Load models and technology files.
+2. Import the extracted SPICE netlist.
+3. Identify cell behavior.
+4. Load subcircuits.
+5. Connect power sources.
+6. Apply stimuli for characterization.
+7. Set appropriate output capacitance loads.
+8. Add necessary simulation commands.
+
+All steps are compiled into a configuration file for the GUNA tool, which generates `.lib` files for timing, power, and noise characterization.
 
 **Timing parameters**
 
@@ -3440,13 +3448,15 @@ A typical standard cell characterization flow that is followed in the industry i
 | out_rise_thr | 50% value |
 | out_fall_thr | 50% value |
 
-**Propagation Delay**: It refers to the time it takes for a change in an input signal to reach 50% of its final value to produce a corresponding change in the output signal to reach 50% of its final value of a digital circuit.
+**Propagation Delay**: 
+It is the time taken for an input signal change to reach 50% of its final value and produce a corresponding output signal change to 50% of its final value in a digital circuit.
 
 ```
 rise delay =  time(out_fall_thr) - time(in_rise_thr)
 ```
 
-**Transistion time**: The time it takes the signal to move between states is the transition time , where the time is measured between 10% and 90% or 20% to 80% of the signal levels.
+**Transistion time**: 
+The time it takes the signal to move between states is the transition time , where the time is measured between 10% and 90% or 20% to 80% of the signal levels.
 
 ```
 Fall transition time: time(slew_high_fall_thr) - time(slew_low_fall_thr)
