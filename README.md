@@ -3925,14 +3925,21 @@ grid 0.46um 0.34um 0.23um 0.17um
 ```
 ![Screenshot 2024-11-14 124425](https://github.com/user-attachments/assets/ac0ac5f5-3a93-4dbd-9623-90aaaed7ae1e)
 
-Condition 1 verified
+**Condition 1 verified:**
+
 ![Screenshot 2024-11-14 124535](https://github.com/user-attachments/assets/2837d386-fd75-4a2f-8068-3a4ab1d77651)
 
-Condition 2 verified
+**Condition 2 verified:**
 
 ![image](https://github.com/user-attachments/assets/c81f5d00-b198-4535-ae92-d0d30904c121)
 
+
+**Condition 3 verified:**
+
+![image](https://github.com/user-attachments/assets/2ed670a6-f55c-405d-8c13-f0ad8129a8e5)
+
 ### 2. Save the finalized layout with custom name and open it.
+
 Command for tkcon window to save the layout with custom name
 ```
 # Command to save as
