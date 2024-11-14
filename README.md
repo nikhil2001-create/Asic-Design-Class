@@ -3539,11 +3539,22 @@ Vin in 0 0 pulse 0 2.5 0 10p 10p 1n 2n
 **Now, we clone the custom inverter:**
 
 ```
+# Change directory to OpenLANE working directory
 cd Desktop/work/tools/openlane_working_dir/openlane
+
+# Clone the repository with custom inverter design
 git clone https://github.com/nickson-jose/vsdstdcelldesign
+
+# Change into the cloned directory
 cd vsdstdcelldesign
+
+# Copy Magic tech file to the current directory
 cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
+
+# Check directory contents
 ls
+
+# Open custom inverter layout in Magic
 magic -T sky130A.tech sky130_nikinv.mag &
 ```
 
@@ -3591,10 +3602,16 @@ Screenshot of custom inverter layout in magic
 **Spice extraction of inverter in Magic. Run these in the tkcon window:**
 
 ```
-# Check current directory
+# Verify current directory
 pwd
+
+# Extract to .ext format
 extract all
+
+# Enable parasitic extraction
 ext2spice cthresh 0 rthresh 0
+
+# Convert .ext file to .spice file
 ext2spice
 ```
 
@@ -3743,38 +3760,57 @@ Fall Cell Delay : Time taken by output to fall to 50% − Time taken by input to
 Fall cell delay = 4.07515 - 4.05061 = 0.02454 ns = 24.54 ps
 ```
 
-Magic Tool options and DRC Rules:
+### DRC Correction in Magic for Skywater Process:
 
-**Now, go to home directory and run the below commands:**
+**Step 1: Go to home directory and run the below commands:**
 
 ```
+# Change to home directory
 cd
+
+# Download the lab files for DRC correction
 wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+
+# Extract the compressed lab files
 tar xfz drc_tests.tgz
+
+# Navigate into the extracted lab folder
 cd drc_tests
+
+# List all files and directories in the current directory
 ls -al
+
+# Open the .magicrc file for editing
 gvim .magicrc
+
+# Open Magic tool with better graphics mode
 magic -d XR &
 ```
 
 
-**First load the poly file by load poly.mag on tkcon window:**
+## Screenshot of Command window:
 
-## Screenshots of Command window:
+![image](https://github.com/user-attachments/assets/8cecc512-9f93-4fdb-aa40-a29b81923bdf)
 
-![image](https://github.com/user-attachments/assets/0b838e98-7050-4157-b7cf-5679dca50a8b)
-
-![image](https://github.com/user-attachments/assets/47aea1d9-d9ea-4928-b244-8c677504a209)
 
 ## Screenshot of .magicrc File:
 
-![image](https://github.com/user-attachments/assets/1fe066f0-f623-4eb0-ae83-1a0b9a53016d)
+![image](https://github.com/user-attachments/assets/7719db70-4f6a-4b8b-b402-9ea35e769296)
 
-![image](https://github.com/user-attachments/assets/e75cf846-ac18-414d-8c30-26cc5582af9c)
+**Step 2: Fixing Incorrectly Implemented DRC Rules**
 
+**Issue 1: Incorrect poly.9 Rule**
 
+The poly.9 rule was incorrectly implemented, allowing spacing violations below 0.48μm.
 
+**Correction Procedure:**
 
+Reviewed the poly.9 rule, identified the issue, and updated the sky130A.tech file.
+
+**Screenshots:**
+
+**Poly rules correction:**
+![image](https://github.com/user-attachments/assets/c3af3266-8a92-4a9c-9457-9799d76ba8ae)
 
 
  
