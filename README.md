@@ -4114,7 +4114,7 @@ tap_decap_or
 
 Now that floorplan is done we can do placement using following command
 
-# Now we are ready to run placement
+### Now we are ready to run placement:
 ```
 run_placement
 ```
