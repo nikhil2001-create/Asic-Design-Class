@@ -2895,7 +2895,7 @@ read_sdc ./src/sdc/sta_post_synth.sdc
 
 
 <details>
-<summary>Lab 11 (07/11/24)</summary>
+<summary>Lab 11 (29/10/24)</summary>
 <br>
 
 # PVT Corner Analysis for Synthesized VSDBabySoC using OpenSTA:
@@ -3007,9 +3007,6 @@ The analysis report shows the following key points:
 The total negative slack and worst negative slacks are provided in the detailed slacks report screenshots.
 
 </details>
-
-
-
 
 
 <details>
@@ -3892,7 +3889,7 @@ The above steps detail how to download the old Skywater process tech files, iden
 
 
 <details>
-<summary>Day 4</summary>
+<summary>DAY 4</summary>
 <br>
 
  ## AIM: Pre-layout timing analysis and importance of good clock tree:
