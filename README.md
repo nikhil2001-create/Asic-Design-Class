@@ -4112,11 +4112,14 @@ Command for tkcon window to view internal layers of cells
 # Command to view internal connectivity layers
 expand
 ```
-Abutment of power pins with other cell from library clearly visible
 
-![image](https://github.com/user-attachments/assets/d425186b-6e11-445d-9dbe-3ca4947a0703)
+**Abutment of power pins with other cell from library clearly visible:**
+
+![image](https://github.com/user-attachments/assets/641bfc69-5561-4899-be00-bf653a607255)
+
 
 ### 9. Do Post-Synthesis timing analysis with OpenSTA tool.
+
 Since we are having 0 wns after improved timing run we are going to do timing analysis on initial run of synthesis which has lots of violations and no parameters were added to improve timing
 
 Commands to invoke the OpenLANE flow include new lef and perform synthesis
