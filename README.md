@@ -3786,9 +3786,90 @@ magic -d XR &
 
  ## AIM: Pre-layout timing analysis and importance of good clock tree:
 
- 
- 
- 
+### 1. Fix up small DRC errors and verify the design is ready to be inserted into our flow.
+Conditions to be verified before moving forward with custom designed cell layout:
+
+Condition 1: The input and output ports of the standard cell should lie on the intersection of the vertical and horizontal tracks.
+Condition 2: Width of the standard cell should be odd multiples of the horizontal track pitch.
+Condition 3: Height of the standard cell should be even multiples of the vertical track pitch.
+Commands to open the custom inverter layout
+```c
+# Change directory to vsdstdcelldesign
+cd Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_inv.mag &
+```
+Screenshot of tracks.info of sky130_fd_sc_hd
+
+ ![image](https://github.com/user-attachments/assets/eff1297e-35d8-4620-8e88-73134174b10b)
+
+ commands for tkcon window to set grid as tracks of locali layer
+```c
+# Get syntax for grid command
+help grid
+
+# Set grid values accordingly
+grid 0.46um 0.34um 0.23um 0.17um
+```
+![Screenshot 2024-11-14 124425](https://github.com/user-attachments/assets/ac0ac5f5-3a93-4dbd-9623-90aaaed7ae1e)
+
+Condition 1 verified
+![Screenshot 2024-11-14 124535](https://github.com/user-attachments/assets/2837d386-fd75-4a2f-8068-3a4ab1d77651)
+
+Condition 2 verified
+
+![image](https://github.com/user-attachments/assets/c81f5d00-b198-4535-ae92-d0d30904c121)
+
+### 2. Save the finalized layout with custom name and open it.
+Command for tkcon window to save the layout with custom name
+```
+# Command to save as
+save sky130_nikinv.mag
+```
+
+Command to open the newly saved layout
+```
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_vsdinv.mag &
+
+```
+Screenshot of newly saved layout
+![image](https://github.com/user-attachments/assets/8a9901c0-7026-46b8-a201-7d3987e6bf5c)
+
+### 3. Generate lef from the layout.
+Command for tkcon window to write lef
+```
+# lef command
+lef write
+```
+Screenshot of command run
+![image](https://github.com/user-attachments/assets/c73c19b3-bd04-456d-b801-adcc7c5d0130)
+
+Screenshot of newly created lef file
+![image](https://github.com/user-attachments/assets/26434bf3-b1b5-4a04-af42-46b7b9b4d87f)
+
+### 4. Copy the newly generated lef and associated required lib files to 'picorv32a' design 'src' directory.
+Commands to copy necessary files to 'picorv32a' design 'src' directory
+```
+# Copy lef file
+cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# List and check whether it's copied
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# Copy lib files
+cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# List and check whether it's copied
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+```
+Screenshot of commands run
+
+![image](https://github.com/user-attachments/assets/300fae42-3eb0-41ed-b35a-ae6ed321cea7)
+
+
+
  </details>
 
 </details>
