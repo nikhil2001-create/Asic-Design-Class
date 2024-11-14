@@ -4493,5 +4493,162 @@ Screenshots of commands run and timing report generated
 ![image](https://github.com/user-attachments/assets/b772967b-8e37-4add-ba3f-d527e6de7d49)
 
  </details>
+<details>
 
+ <summary> Day 5 Final steps for RTL2GDS using tritonRoute and openSTA</summary>
+
+##  1. Perform generation of Power Distribution Network (PDN) and explore the PDN layout.
+Commands to perform all necessary stages up until now
+```
+# Change directory to openlane flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
+# Since we have aliased the long command to 'docker' we can invoke the OpenLANE flow docker sub-system by just running this command
+docker
+# Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
+
+# Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a
+
+# Addiitional commands to include newly added lef to openlane flow merged.lef
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+# Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+# Following commands are alltogather sourced in "run_floorplan" command
+init_floorplan
+place_io
+tap_decap_or
+
+# Now we are ready to run placement
+run_placement
+
+# Incase getting error
+unset ::env(LIB_CTS)
+
+# With placement done we are now ready to run CTS
+run_cts
+
+# Now that CTS is done we can do power distribution network
+gen_pdn
+```
+
+Screenshots of power distribution network run
+![image](https://github.com/user-attachments/assets/3d1e41bb-e6ed-40dd-a859-8fed6d0495f1)
+![image](https://github.com/user-attachments/assets/4322ad9c-be83-4f14-8d90-b790135c7857)
+![image](https://github.com/user-attachments/assets/caafe50d-a4e9-4490-b086-9266b05b0858)
+![image](https://github.com/user-attachments/assets/b75d0b90-898a-4285-8027-15777701a600)
+
+Commands to load PDN def in magic in another terminal
+```
+# Change directory to path containing generated PDN def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/14-11_20-03/tmp/floorplan/
+
+# Command to load the PDN def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def &
+```
+Screenshots of PDN def
+
+![image](https://github.com/user-attachments/assets/4e066580-5892-4255-a687-5b6fbc44340f)
+![image](https://github.com/user-attachments/assets/22316413-a17c-4e11-a3a8-d545fffa01db)
+
+![image](https://github.com/user-attachments/assets/23bb7fc9-8db7-41e1-9c46-b24fb99cfc1f)
+
+## 2. Perfrom detailed routing using TritonRoute and explore the routed layout.
+Command to perform routing
+```
+# Check value of 'CURRENT_DEF'
+echo $::env(CURRENT_DEF)
+
+# Check value of 'ROUTING_STRATEGY'
+echo $::env(ROUTING_STRATEGY)
+
+# Command for detailed route using TritonRoute
+run_routing
+```
+Screenshots of routing run
+![image](https://github.com/user-attachments/assets/9f6b4fcc-2013-4df1-aa6a-8741c48b2831)
+![image](https://github.com/user-attachments/assets/5df3a5a9-7f88-4702-8826-1697522b1aa7)
+
+Commands to load routed def in magic in another terminal
+
+```
+# Change directory to path containing routed def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/14-11_20-03/results/routing/
+
+# Command to load the routed def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.def &
+```
+Screenshots of routed def
+![image](https://github.com/user-attachments/assets/be7ff991-8d65-4673-a433-19f5935427ed)
+
+![image](https://github.com/user-attachments/assets/b3c30cbf-8383-4037-8300-cae04eb08e8d)
+![image](https://github.com/user-attachments/assets/51907358-cfff-44c8-b04b-c0b2fdbbbd1d)
+
+Screenshot of fast route guide present in openlane/designs/picorv32a/runs/14-11_20-03/tmp/routing directory
+
+![image](https://github.com/user-attachments/assets/92d091eb-3295-4049-bdf7-c264edb33243)
+
+### 3. Post-Route OpenSTA timing analysis with the extracted parasitics of the route.
+Commands to be run in OpenLANE flow to do OpenROAD timing analysis with integrated OpenSTA in OpenROAD
+```
+# Command to run OpenROAD tool
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/14-11_20-03/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/14-11_20-03/results/routing/picorv32a.def
+
+# Creating an OpenROAD database to work with
+write_db pico_route.db
+
+# Loading the created database in OpenROAD
+read_db pico_route.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/14-11_20-03/results/synthesis/picorv32a.synthesis_preroute.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Read SPEF
+read_spef /openLANE_flow/designs/picorv32a/runs/14-11_20-03/results/routing/picorv32a.spef
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Exit to OpenLANE flow
+exit
+```
+Screenshots of commands run and timing report generated
+
+![image](https://github.com/user-attachments/assets/3f1d8e2a-e62f-40b1-9ae5-b1ec8d717bcf)
+![image](https://github.com/user-attachments/assets/300658ce-756b-40f9-8573-68510f84dd0b)
+![image](https://github.com/user-attachments/assets/99739330-7d3f-4828-ab63-b719ff4cea07)
+
+</details>
 </details>
