@@ -3472,9 +3472,9 @@ Rise transition time: time(slew_high_rise_thr) - time(slew_low_rise_thr)
 
 ## AIM : Design library cell using Magic Layout and ngspice characterization
 
-**CMOS inverter ngspice simulations**
+**CMOS inverter ngspice simulations:**
 
-**Creating a SPICE Deck for a CMOS Inverter Simulation:**
+**Creating a SPICE Deck for a CMOS Inverter Simulation:*v*
 
 - **Netlist Creation:** Define the component connections and label nodes (e.g., input, output, ground, supply) for easy identification in the SPICE simulation.
 - **Device Sizing:** Set the W/L ratios for PMOS and NMOS, with PMOS width typically 2-3 times larger than NMOS for balanced drive strength.
@@ -3722,7 +3722,7 @@ Fall Transition Time = 4.09308 - 4.0506 = 0.04248 ns = 42.48 ps
 Rise Cell Delay : Time taken by output to rise to 50% − Time taken by input to fall to 50%
 50 % of 3.3V = 1.65V
 
-50% Screenshots
+**50% Screenshots:**
 
 ![image](https://github.com/user-attachments/assets/176fd468-c02a-469d-b14f-ee9a58bf1f2e)
 
@@ -3730,6 +3730,7 @@ Rise Cell Delay : Time taken by output to rise to 50% − Time taken by input to
 ```
 Rise cell delay = 2.2072 - 2.1504 = 0.0568 ns = 56.80 ps
 ```
+
 Fall Cell Delay : Time taken by output to fall to 50% − Time taken by input to rise to 50%
 50 % of 3.3V = 1.65V
 
@@ -3756,36 +3757,20 @@ gvim .magicrc
 magic -d XR &
 ```
 
-![image](https://github.com/user-attachments/assets/1fe066f0-f623-4eb0-ae83-1a0b9a53016d)
-
 
 **First load the poly file by load poly.mag on tkcon window:**
 
-![image](https://github.com/user-attachments/assets/526124f5-b92c-4cdd-a122-1dfa56b42a61)
+## Screenshots of Command window:
 
-We can see that Poly.9 is incorrect.
+![image](https://github.com/user-attachments/assets/0b838e98-7050-4157-b7cf-5679dca50a8b)
 
-Screenshot of poly rules
+![image](https://github.com/user-attachments/assets/47aea1d9-d9ea-4928-b244-8c677504a209)
 
-![image](https://github.com/user-attachments/assets/a8260270-a35d-4104-9929-3a057b81d19c)
+## Screenshot of .magicrc File:
 
-Add the below commands in the sky130A.tech
+![image](https://github.com/user-attachments/assets/1fe066f0-f623-4eb0-ae83-1a0b9a53016d)
 
-![image](https://github.com/user-attachments/assets/eda07ffc-6d4c-438d-9e49-31deb982140d)
-
-
-![image](https://github.com/user-attachments/assets/8e7d7af0-89c4-484d-b3fb-63d4a3628475)
-
-
-Run the commands in tkcon window:
-
-```
-tech load sky130A.tech
-drc check
-drc why
-```
-
-![image](https://github.com/user-attachments/assets/29f72049-28e6-4d87-ac46-29e9bbe97241)
+![image](https://github.com/user-attachments/assets/e75cf846-ac18-414d-8c30-26cc5582af9c)
 
 
 
