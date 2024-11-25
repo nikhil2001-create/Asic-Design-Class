@@ -4850,7 +4850,7 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk synth
 
 **Synthesis netlist:**
 
-![image](https://github.com/user-attachments/assets/d66ea435-cff1-4a23-ac6c-b1699094e82f)
+![image](https://github.com/user-attachments/assets/85a02efe-1fb2-4e04-bec0-c197989b2589)
 
 **Synthesis log:**
 
@@ -4865,10 +4865,6 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk synth
 ![image](https://github.com/user-attachments/assets/2d44f8c7-faa0-464e-a276-e250308fe535)
 
 ![image](https://github.com/user-attachments/assets/77b93829-4bce-42e5-a8a0-9f81434130a6)
-
-![image](https://github.com/user-attachments/assets/299975a7-6947-417b-9c05-e9a12fa4835f)
-
-![image](https://github.com/user-attachments/assets/e4972fde-9622-4062-8765-22a5acf23a1d)
 
 ![image](https://github.com/user-attachments/assets/1766e07b-4bc2-48ed-9f09-2449ddefec70)
 
