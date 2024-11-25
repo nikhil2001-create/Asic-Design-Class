@@ -4858,7 +4858,27 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk synth
 
 **Synthesis Check:**
 
+![image](https://github.com/user-attachments/assets/d9129b54-fbe1-47b5-86aa-f64c8fd38463)
 
+**Synthesis Stats:**
+
+![image](https://github.com/user-attachments/assets/2d44f8c7-faa0-464e-a276-e250308fe535)
+
+![image](https://github.com/user-attachments/assets/77b93829-4bce-42e5-a8a0-9f81434130a6)
+
+![image](https://github.com/user-attachments/assets/299975a7-6947-417b-9c05-e9a12fa4835f)
+
+![image](https://github.com/user-attachments/assets/e4972fde-9622-4062-8765-22a5acf23a1d)
+
+![image](https://github.com/user-attachments/assets/3f6cfa17-57ca-4bb3-a93a-018635f1e366)
+
+
+
+**Commands for floorplan:**
+
+```
+make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk floorplan
+```
 
 
 ![image](https://github.com/user-attachments/assets/5cb29a04-0f60-49f6-96ab-6f6d5fa64f55)
