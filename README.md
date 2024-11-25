@@ -4884,12 +4884,65 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk floorplan
 
 ![image](https://github.com/user-attachments/assets/830285ee-0777-49d0-bcea-a3dd483f15eb)
 
+
+```
+make gui_floorplan
+```
+
 ![image](https://github.com/user-attachments/assets/83212d5a-f8f4-49d8-91c2-c5fa940e066e)
 
+
+```
+sudo make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk gui_floorplan
+```
 
 ![image](https://github.com/user-attachments/assets/700976c7-d4a3-496d-a034-2683b661b9df)
 
 ![image](https://github.com/user-attachments/assets/124b4c04-215a-41ac-b703-4949245f0d57)
+
+
+### For Placement:
+
+**command:**
+
+```
+sudo make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk place
+```
+
+![image](https://github.com/user-attachments/assets/33916991-8db3-47e6-8846-cd0735f7b42e)
+
+![image](https://github.com/user-attachments/assets/226309b5-19b5-4747-8d15-e660b5a3bfaa)
+
+
+```
+make gui_place
+```
+
+![image](https://github.com/user-attachments/assets/6cc7037b-81b7-4b1f-a81c-dd925ac03e9a)
+
+![image](https://github.com/user-attachments/assets/96fd65fd-6a8d-4584-ad64-9636eedf75a5)
+
+
+### CTS Command:
+```
+sudo make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk cts
+```
+
+![image](https://github.com/user-attachments/assets/4055a347-d71a-4a75-b452-525501fa235e)
+
+
+```
+make gui_cts
+```
+
+![image](https://github.com/user-attachments/assets/b95b4485-0b4e-41d2-aa72-c8ffadfafa89)
+
+![image](https://github.com/user-attachments/assets/26767bde-9eed-4fdc-8b73-d566526b5d52)
+
+
+### Clock Tree Synthesis:
+
+
 
 
 
