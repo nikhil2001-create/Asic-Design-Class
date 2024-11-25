@@ -4942,6 +4942,41 @@ make gui_cts
 
 ### Clock Tree Synthesis:
 
+![image](https://github.com/user-attachments/assets/da81c0d0-e50f-4d72-8fff-42a440328aa3)
+
+![image](https://github.com/user-attachments/assets/c913ce49-dfcf-470d-ac93-a5f927a51581)
+
+![image](https://github.com/user-attachments/assets/7849d5c2-0779-4484-ac98-e6ad03caff5c)
+
+
+**For Route:**
+
+```
+make gui_route
+```
+
+![image](https://github.com/user-attachments/assets/1ba24fee-5a60-437c-93fa-39472868c8cc)
+
+![image](https://github.com/user-attachments/assets/b0e5fab3-f90d-4609-88c1-95cc97017e64)
+
+
+**For Final Layout:**
+
+```
+make gui_final
+```
+
+![image](https://github.com/user-attachments/assets/95e03f79-afb1-4b89-aff6-ee511aa9b97a)
+
+![image](https://github.com/user-attachments/assets/077cbfa3-21e1-4370-87f8-03d13d9a8ff1)
+
+![image](https://github.com/user-attachments/assets/6f9ef107-cd3b-4902-9c5a-b0ffb36fd923)
+
+![image](https://github.com/user-attachments/assets/33ceffae-9956-47bc-8174-ccb9e15886b6)
+
+![image](https://github.com/user-attachments/assets/fb70ee53-04a8-44c5-bf1f-17e97901fd67)
+
+
 
 
 
