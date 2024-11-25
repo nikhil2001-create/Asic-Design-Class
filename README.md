@@ -4872,6 +4872,10 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk synth
 
 ![image](https://github.com/user-attachments/assets/1766e07b-4bc2-48ed-9f09-2449ddefec70)
 
+**Synthesis TCL:**
+
+![image](https://github.com/user-attachments/assets/cfdd1c6e-b4ea-4ecd-879c-1043dfad2408)
+
 
 **Commands for floorplan:**
 
