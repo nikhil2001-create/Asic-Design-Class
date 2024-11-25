@@ -4953,16 +4953,6 @@ make gui_cts
 ![image](https://github.com/user-attachments/assets/7849d5c2-0779-4484-ac98-e6ad03caff5c)
 
 
-**For Route:**
-
-```
-make gui_route
-```
-
-![image](https://github.com/user-attachments/assets/1ba24fee-5a60-437c-93fa-39472868c8cc)
-
-![image](https://github.com/user-attachments/assets/b0e5fab3-f90d-4609-88c1-95cc97017e64)
-
 
 **For Final Layout:**
 
@@ -4993,7 +4983,22 @@ klayout -e -nn ./platforms/nangate45/FreePDK45.lyt -l ./platforms/nangate45/Free
 ![image](https://github.com/user-attachments/assets/5f11bf8d-d0df-4336-be5d-ce262bd023c0)
 
 
+**Route Command:**
 
+![image](https://github.com/user-attachments/assets/f2aeec9f-5d32-4084-bfc9-1d9f8028fdc1)
+
+![image](https://github.com/user-attachments/assets/c96466d9-e8ac-456d-99dd-e04ef8548634)
+
+
+**For Route:**
+
+```
+make gui_route
+```
+
+![image](https://github.com/user-attachments/assets/1ba24fee-5a60-437c-93fa-39472868c8cc)
+
+![image](https://github.com/user-attachments/assets/b0e5fab3-f90d-4609-88c1-95cc97017e64)
 
 
 
