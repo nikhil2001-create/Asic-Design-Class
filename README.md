@@ -4762,6 +4762,9 @@ cd OpenROAD-flow-scripts
 sudo ./setup.sh
 ```
 
+![image](https://github.com/user-attachments/assets/b5222ac8-f328-43b7-ae81-061e7567a217)
+
+
 **Building the Project:**
 
 To build OpenROAD, execute the following command:
