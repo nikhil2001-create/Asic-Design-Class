@@ -4762,7 +4762,7 @@ cd OpenROAD-flow-scripts
 sudo ./setup.sh
 ```
 
-![image](https://github.com/user-attachments/assets/b5222ac8-f328-43b7-ae81-061e7567a217)
+![image](https://github.com/user-attachments/assets/9f59471d-4ddf-4dd0-8f55-448d242fb56a)
 
 
 **Building the Project:**
