@@ -4870,8 +4870,7 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk synth
 
 ![image](https://github.com/user-attachments/assets/e4972fde-9622-4062-8765-22a5acf23a1d)
 
-![image](https://github.com/user-attachments/assets/3f6cfa17-57ca-4bb3-a93a-018635f1e366)
-
+![image](https://github.com/user-attachments/assets/1766e07b-4bc2-48ed-9f09-2449ddefec70)
 
 
 **Commands for floorplan:**
