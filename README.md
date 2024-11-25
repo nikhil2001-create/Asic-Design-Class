@@ -4978,6 +4978,20 @@ make gui_final
 
 
 
+**To open the GDS file in KLayout, use the following commands:**
+
+```
+klayout -e -nn ./platforms/nangate45/FreePDK45.lyt -l ./platforms/nangate45/FreePDK45.lyp ./results/nangate45/gcd/base/6_final.gds
+```
+
+![image](https://github.com/user-attachments/assets/31785964-d753-420a-b289-753af6ed6732)
+
+![image](https://github.com/user-attachments/assets/5f11bf8d-d0df-4336-be5d-ce262bd023c0)
+
+
+
+
+
 
 
 
