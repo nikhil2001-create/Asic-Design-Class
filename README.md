@@ -4799,6 +4799,17 @@ make gui_final
 ![image](https://github.com/user-attachments/assets/e79e8030-892a-45f6-ab08-8ddaa5b15c34)
 
 
+![image](https://github.com/user-attachments/assets/90cd38cb-dcb4-459a-84ee-36b5373716a6)
+
+![image](https://github.com/user-attachments/assets/5cb29a04-0f60-49f6-96ab-6f6d5fa64f55)
+
+![image](https://github.com/user-attachments/assets/830285ee-0777-49d0-bcea-a3dd483f15eb)
+
+![image](https://github.com/user-attachments/assets/83212d5a-f8f4-49d8-91c2-c5fa940e066e)
+
+![image](https://github.com/user-attachments/assets/700976c7-d4a3-496d-a034-2683b661b9df)
+
+![image](https://github.com/user-attachments/assets/2f0448f5-ea87-4267-8082-b7d3369c0197)
 
 
 
