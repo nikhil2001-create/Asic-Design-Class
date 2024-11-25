@@ -4796,8 +4796,55 @@ make
 make gui_final
 ```
 
+
 ![image](https://github.com/user-attachments/assets/e79e8030-892a-45f6-ab08-8ddaa5b15c34)
 
+
+### ORFS Directory Structure and File formats:
+
+![image](https://github.com/user-attachments/assets/bc7a17ce-e5b6-469e-b5a5-c254de6e176d)
+
+### Now, go to flow directory:
+
+![image](https://github.com/user-attachments/assets/79b3903f-263b-4bd9-abf4-b783f115aa71)
+
+
+### Automated RTL-to-GDS Flow for VSDBabySoC
+
+Follow these steps to set up the VSDBabySoC design in the OpenROAD-flow-scripts environment:
+
+1. **Create the Directory**:  
+   Navigate to `OpenROAD-flow-scripts/flow/designs/sky130hd` and create a new folder named `vsdbabysoc`.
+
+2. **Copy Required Files**:  
+   Transfer the following folders and their respective contents from the VSDBabySoC directory on the system to the newly created `vsdbabysoc` directory:  
+   - **gds**: Includes `avsddac.gds` and `avsdpll.gds`.  
+   - **include**: Contains `sandpiper.vh`, `sandpiper_gen.vh`, `sp_default.vh`, and `sp_verilog.vh`.  
+   - **lef**: Includes `avsddac.lef` and `avsdpll.lef`.  
+   - **lib**: Contains `avsddac.lib` and `avsdpll.lib`.
+
+3. **Add Constraints File**:  
+   Copy `vsdbabysoc_synthesis.sdc` to the `vsdbabysoc` directory.
+
+4. **Include Additional Configuration Files**:  
+   Transfer `macro.cfg` and `pin_order.cfg` from the VSDBabySoC folder to the same directory.
+
+5. **Prepare Macro Configuration**:  
+   Create a `macro.cfg` file in the `vsdbabysoc` directory with the required configuration details.
+
+By following these steps, we can set up the VSDBabySoC design for RTL-to-GDS implementation. 
+
+Now go to terminal and run the following commands:
+```
+cd OpenROAD-flow-scripts
+source env.sh
+cd flow
+```
+
+**Commands for synthesis:**
+```
+make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk synth
+```
 
 ![image](https://github.com/user-attachments/assets/90cd38cb-dcb4-459a-84ee-36b5373716a6)
 
