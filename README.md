@@ -4745,3 +4745,58 @@ exit
 
 </details>
 </details>
+
+<details>
+<summary>Lab 13 (19/11/24)</summary>
+<br>
+
+## OpenRoad Physical Design:
+
+### Cloning and Installing Dependencies
+
+To set up the environment, use the `setup.sh` script to install all necessary dependencies, including those required for OpenROAD. 
+
+```bash
+git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts
+cd OpenROAD-flow-scripts
+sudo ./setup.sh
+```
+
+**Building the Project:**
+
+To build OpenROAD, execute the following command:
+
+```bash
+./build_openroad.sh --local
+```
+
+**Verifying the Installation:**
+
+After setting up the environment, the binaries will be available in your system's path. 
+
+```bash
+source ./env.sh
+yosys -help
+openroad -help
+cd flow
+make
+```
+
+![image](https://github.com/user-attachments/assets/3598a474-5d23-4e90-abdf-30ce0269d4ee)
+
+![image](https://github.com/user-attachments/assets/7f906560-5507-44da-9e0c-6ecd0e4e41f4)
+
+
+**To view the final layout in the OpenROAD GUI, use the following command:**
+
+```bash
+make gui_final
+```
+
+![image](https://github.com/user-attachments/assets/e79e8030-892a-45f6-ab08-8ddaa5b15c34)
+
+
+
+
+
+</details>
