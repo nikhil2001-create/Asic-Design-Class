@@ -4886,6 +4886,7 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk floorplan
 
 ![image](https://github.com/user-attachments/assets/83212d5a-f8f4-49d8-91c2-c5fa940e066e)
 
+
 ![image](https://github.com/user-attachments/assets/700976c7-d4a3-496d-a034-2683b661b9df)
 
 ![image](https://github.com/user-attachments/assets/124b4c04-215a-41ac-b703-4949245f0d57)
