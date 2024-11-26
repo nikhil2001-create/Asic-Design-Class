@@ -4859,6 +4859,87 @@ Follow these steps to set up the VSDBabySoC design in the OpenROAD-flow-scripts 
 
 By following these steps, we can set up the VSDBabySoC design for RTL-to-GDS implementation. 
 
+### create a config.mk file whose contents are shown below:
+```
+export DESIGN_NICKNAME = vsdbabysoc
+export DESIGN_NAME = vsdbabysoc
+export PLATFORM    = sky130hd
+
+# export VERILOG_FILES_BLACKBOX = $(DESIGN_HOME)/src/$(DESIGN_NICKNAME)/IPs/*.v
+# export VERILOG_FILES = $(sort $(wildcard $(DESIGN_HOME)/src/$(DESIGN_NICKNAME)/*.v))
+# Explicitly list the Verilog files for synthesis
+export VERILOG_FILES = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/module/vsdbabysoc.v \
+                       /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/module/rvmyth.v \
+                       /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/module/clk_gate.v
+
+export SDC_FILE      = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/sdc/vsdbabysoc_synthesis.sdc
+
+#export DIE_AREA   = 0 0 1500 1500
+# export CORE_AREA  = 10 10 2910 3510
+
+# export PLACE_DENSITY ?= 0.23
+
+export vsdbabysoc_DIR = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC
+
+export VERILOG_INCLUDE_DIRS = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/include
+
+# export SDC_FILE      = $(wildcard $(vsdbabysoc_DIR)/sdc/*.sdc)
+export ADDITIONAL_GDS  = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/gds
+export ADDITIONAL_LEFS  = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/lef
+
+export ADDITIONAL_LIBS = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/lib/avsddac.lib \
+                         /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/lib/avsdpll.lib
+
+# Clock Configuration (vsdbabysoc specific)
+# export CLOCK_PERIOD = 20.0
+export CLOCK_PORT = CLK
+export CLOCK_NET = $(CLOCK_PORT)
+
+# Floorplanning Configuration (vsdbabysoc specific)
+export FP_PIN_ORDER_CFG = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/layout_conf/vsdbabysoc/pin_order.cfg
+export FP_SIZING = absolute
+export DIE_AREA = 0 0 2000 2000
+export CORE_AREA = 10 10 1800 1800
+
+# export PL_RESIZER_HOLD_MAX_BUFFER_PERCENT = 80
+# export PL_RESIZER_HOLD_MAX_BUFFER_COUNT = 5000  # Set the buffer limit to a higher value if needed
+# export GLB_RESIZER_HOLD_MAX_BUFFER_PERCENT = 80
+
+# Hold Slack Margin Configuration
+# export PL_RESIZER_HOLD_SLACK_MARGIN = 0.01
+# export GLB_RESIZER_HOLD_SLACK_MARGIN = 0.01
+
+export BOTTOM_MARGIN_MULT = 50
+export TOP_MARGIN_MULT = 50
+export LEFT_MARGIN_MULT = 200
+export RIGHT_MARGIN_MULT = 200
+
+# Placement Configuration (vsdbabysoc specific)
+export MACRO_PLACEMENT_CFG = /home/nikhil-bhusari/OpenRoad/OpenROAD-flow-scripts/flow/designs/sky130hd/VSDBabySoC/src/layout_conf/vsdbabysoc/macro.cfg
+
+# Magic Tool Configuration
+export MAGIC_ZEROIZE_ORIGIN = 0
+export MAGIC_EXT_USE_GDS = 1
+
+export SYNTH_HIERARCHICAL = 1
+
+# export RTLMP_BOUNDARY_WT = 0
+#  MACRO_PLACE_HALO = 100 100
+# export MACRO_PLACE_CHANNEL = 200 200
+
+# CTS tuning
+# export CTS_BUF_DISTANCE = 600
+# export SKIP_GATE_CLONING = 1
+
+# export SETUP_SLACK_MARGIN = 0.2
+
+# This is high, some SRAMs should probably be converted
+# to real SRAMs and not instantiated as flops
+# export SYNTH_MEMORY_MAX_BITS ?= 42000
+
+```
+
+
 Now go to terminal and run the following commands:
 ```
 cd OpenROAD-flow-scripts
@@ -5022,10 +5103,10 @@ make gui_place
 
 ![2](https://github.com/user-attachments/assets/9e801259-6266-4c16-9d83-1aed19f19e48)
 
+
+### Detailed Place Timing Report:
+
 ```
-
-
-
 ==========================================================================
 detailed place report_tns
 --------------------------------------------------------------------------
@@ -5251,6 +5332,220 @@ make gui_cts
 ![5](https://github.com/user-attachments/assets/c350d424-bbec-47d2-bdce-93589dd320ec)
 
 
+### CTS REPORT:
+
+```
+==========================================================================
+cts final report_tns
+--------------------------------------------------------------------------
+tns 0.00
+
+==========================================================================
+cts final report_wns
+--------------------------------------------------------------------------
+wns 0.00
+
+==========================================================================
+cts final report_worst_slack
+--------------------------------------------------------------------------
+worst slack INF
+
+==========================================================================
+cts final report_clock_skew
+--------------------------------------------------------------------------
+Clock clk
+No launch/capture paths found.
+
+
+==========================================================================
+cts final report_checks -path_delay min
+--------------------------------------------------------------------------
+No paths found.
+
+==========================================================================
+cts final report_checks -path_delay max
+--------------------------------------------------------------------------
+No paths found.
+
+==========================================================================
+cts final report_checks -unconstrained
+--------------------------------------------------------------------------
+Startpoint: core.CPU_valid_taken_br_a4$_DFF_P_ (rising edge-triggered flip-flop)
+Endpoint: core.CPU_Xreg_value_a4[15][13]$_SDFFE_PP0P_
+          (rising edge-triggered flip-flop)
+Path Group: unconstrained
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.75    0.00    0.00 ^ core.CPU_valid_taken_br_a4$_DFF_P_/CLK (sky130_fd_sc_hd__dfxtp_1)
+     2    0.01    0.04    0.46    0.46 v core.CPU_valid_taken_br_a4$_DFF_P_/Q (sky130_fd_sc_hd__dfxtp_1)
+                                         core.CPU_valid_taken_br_a4 (net)
+                  0.04    0.00    0.46 v _07913_/B (sky130_fd_sc_hd__or4_4)
+    41    0.23    0.36    0.84    1.30 v _07913_/X (sky130_fd_sc_hd__or4_4)
+                                         _02930_ (net)
+                  0.36    0.01    1.31 v load_slew103/A (sky130_fd_sc_hd__buf_16)
+    36    0.28    0.15    0.35    1.66 v load_slew103/X (sky130_fd_sc_hd__buf_16)
+                                         net103 (net)
+                  0.15    0.01    1.67 v max_cap102/A (sky130_fd_sc_hd__buf_16)
+    24    0.27    0.15    0.26    1.94 v max_cap102/X (sky130_fd_sc_hd__buf_16)
+                                         net102 (net)
+                  0.16    0.04    1.97 v _07915_/A (sky130_fd_sc_hd__clkinv_16)
+    43    0.48    0.31    0.25    2.22 ^ _07915_/Y (sky130_fd_sc_hd__clkinv_16)
+                                         _02932_ (net)
+                  0.38    0.11    2.33 ^ _09981_/C (sky130_fd_sc_hd__nor3_2)
+     2    0.02    0.10    0.13    2.46 v _09981_/Y (sky130_fd_sc_hd__nor3_2)
+                                         _04371_ (net)
+                  0.10    0.00    2.46 v _09982_/B1 (sky130_fd_sc_hd__a21oi_4)
+     6    0.10    0.70    0.57    3.03 ^ _09982_/Y (sky130_fd_sc_hd__a21oi_4)
+                                         _04372_ (net)
+                  0.70    0.00    3.03 ^ _09988_/A2 (sky130_fd_sc_hd__o21ai_4)
+    16    0.11    0.31    0.36    3.39 v _09988_/Y (sky130_fd_sc_hd__o21ai_4)
+                                         _04378_ (net)
+                  0.31    0.00    3.39 v _11217_/A (sky130_fd_sc_hd__nor3_4)
+    14    0.11    1.07    0.96    4.35 ^ _11217_/Y (sky130_fd_sc_hd__nor3_4)
+                                         _05443_ (net)
+                  1.07    0.00    4.35 ^ wire20/A (sky130_fd_sc_hd__buf_8)
+    10    0.11    0.19    0.30    4.65 ^ wire20/X (sky130_fd_sc_hd__buf_8)
+                                         net20 (net)
+                  0.20    0.01    4.66 ^ _11238_/B (sky130_fd_sc_hd__nand2_4)
+     5    0.04    0.22    0.13    4.79 v _11238_/Y (sky130_fd_sc_hd__nand2_4)
+                                         _05460_ (net)
+                  0.22    0.00    4.79 v _11240_/B1 (sky130_fd_sc_hd__o221ai_1)
+     1    0.00    0.22    0.23    5.02 ^ _11240_/Y (sky130_fd_sc_hd__o221ai_1)
+                                         _00708_ (net)
+                  0.22    0.00    5.02 ^ core.CPU_Xreg_value_a4[15][13]$_SDFFE_PP0P_/D (sky130_fd_sc_hd__dfxtp_1)
+                                  5.02   data arrival time
+-----------------------------------------------------------------------------
+(Path is unconstrained)
+
+
+
+==========================================================================
+cts final report_check_types -max_slew -max_cap -max_fanout -violators
+--------------------------------------------------------------------------
+
+==========================================================================
+cts final max_slew_check_slack
+--------------------------------------------------------------------------
+0.05385647714138031
+
+==========================================================================
+cts final max_slew_check_limit
+--------------------------------------------------------------------------
+1.4951549768447876
+
+==========================================================================
+cts final max_slew_check_slack_limit
+--------------------------------------------------------------------------
+0.0360
+
+==========================================================================
+cts final max_fanout_check_slack
+--------------------------------------------------------------------------
+1.0000000150474662e+30
+
+==========================================================================
+cts final max_fanout_check_limit
+--------------------------------------------------------------------------
+1.0000000150474662e+30
+
+==========================================================================
+cts final max_capacitance_check_slack
+--------------------------------------------------------------------------
+0.005084257572889328
+
+==========================================================================
+cts final max_capacitance_check_limit
+--------------------------------------------------------------------------
+0.19410200417041779
+
+==========================================================================
+cts final max_capacitance_check_slack_limit
+--------------------------------------------------------------------------
+0.0262
+
+==========================================================================
+cts final max_slew_violation_count
+--------------------------------------------------------------------------
+max slew violation count 0
+
+==========================================================================
+cts final max_fanout_violation_count
+--------------------------------------------------------------------------
+max fanout violation count 0
+
+==========================================================================
+cts final max_cap_violation_count
+--------------------------------------------------------------------------
+max cap violation count 0
+
+==========================================================================
+cts final setup_violation_count
+--------------------------------------------------------------------------
+setup violation count 0
+
+==========================================================================
+cts final hold_violation_count
+--------------------------------------------------------------------------
+hold violation count 0
+
+==========================================================================
+cts final report_checks -path_delay max reg to reg
+--------------------------------------------------------------------------
+No paths found.
+
+==========================================================================
+cts final report_checks -path_delay min reg to reg
+--------------------------------------------------------------------------
+No paths found.
+
+==========================================================================
+cts final critical path target clock latency max path
+--------------------------------------------------------------------------
+0
+
+==========================================================================
+cts final critical path target clock latency min path
+--------------------------------------------------------------------------
+0
+
+==========================================================================
+cts final critical path source clock latency min path
+--------------------------------------------------------------------------
+0
+
+==========================================================================
+cts final critical path delay
+--------------------------------------------------------------------------
+-1
+
+==========================================================================
+cts final critical path slack
+--------------------------------------------------------------------------
+0
+
+==========================================================================
+cts final slack div critical path delay
+--------------------------------------------------------------------------
+0.000000
+
+==========================================================================
+cts final report_power
+--------------------------------------------------------------------------
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             9.16e-12   1.11e-11   1.45e-08   1.46e-08  49.9%
+Combinational          1.89e-11   4.96e-11   1.46e-08   1.46e-08  50.1%
+Clock                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  2.81e-11   6.07e-11   2.91e-08   2.92e-08 100.0%
+                           0.1%       0.2%      99.7%
+```
+
 
 ### For Final Layout:
 
@@ -5268,7 +5563,7 @@ make gui_final
 
 
 
-**Commands for route:**
+### Commands for route:
 
 ```
 make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk route
