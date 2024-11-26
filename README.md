@@ -4750,9 +4750,34 @@ exit
 <summary>Lab 13 (19/11/24)</summary>
 <br>
 
-## OpenRoad Physical Design:
+## OpenRoad Physical Design
 
-### Cloning and Installing Dependencies
+### OpenROAD: Integrated Chip Physical Design Tool
+
+OpenROAD is an automated RTL-to-GDSII tool for digital ASIC design, supporting synthesis, floorplanning, placement, routing, parasitic extraction, and timing analysis. It optimizes timing, power, and wire length with an extensible modular architecture.
+
+### Flow Controllers
+
+### 1. OpenROAD-flow-scripts (ORFS)
+- Automated RTL-to-GDSII flow with stages: Synthesis, PnR, STA, DRC, and LVS.
+- Compatible with PDKs like GF180, Skywater130, and ASAP7.
+
+### 2. OpenLane
+- Tailored for Skywater130 MPW projects.
+
+## Key Stages in ORFS Process
+1. **Configuration**: Set design parameters and constraints.
+2. **Design Entry**: Input Verilog design files.
+3. **Synthesis**: Convert RTL to a gate-level netlist.
+4. **Floorplanning & Placement**: Place modules and cells in the chip.
+5. **Routing**: Connect gates and cells with metal wires.
+6. **Layout Verification**: Ensure design correctness.
+7. **GDSII Generation**: Create final layout files.
+
+OpenROAD simplifies and automates the chip design process, making it efficient and customizable for various projects.
+
+
+### Cloning and Installing Dependencies:
 
 To set up the environment, use the `setup.sh` script to install all necessary dependencies, including those required for OpenROAD. 
 
