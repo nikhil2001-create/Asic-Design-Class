@@ -4999,6 +4999,8 @@ make gui_place
 
 ```
 
+
+
 ==========================================================================
 detailed place report_tns
 --------------------------------------------------------------------------
@@ -5210,7 +5212,7 @@ Total                  2.80e-11   6.04e-11   2.91e-08   2.92e-08 100.0%
 sudo make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk cts
 ```
 
-![Screenshot from 2024-11-26 00-03-12](https://github.com/user-attachments/assets/ba2d97b2-3d30-4b31-b238-b1afd2f80341)
+![image](https://github.com/user-attachments/assets/05bfa1ce-d760-49ac-97c1-89af272152e8)
 
 
 ```
@@ -5224,6 +5226,23 @@ make gui_cts
 ![5](https://github.com/user-attachments/assets/c350d424-bbec-47d2-bdce-93589dd320ec)
 
 
+
+### For Final Layout:
+
+```
+make gui_final
+```
+
+![Screenshot from 2024-11-26 00-31-14](https://github.com/user-attachments/assets/84d3d2f5-de4f-4f0a-bf92-fb913fe567ee)
+
+![Screenshot from 2024-11-26 00-35-01](https://github.com/user-attachments/assets/87f368c9-c7b6-411d-8d35-ee0c8b6a2dac)
+
+![Screenshot from 2024-11-26 00-39-43](https://github.com/user-attachments/assets/b5644b25-8660-4042-b03e-bc00da3a2992)
+
+![Screenshot from 2024-11-26 00-41-18](https://github.com/user-attachments/assets/a92b4e4f-676d-44a3-8f95-d304b2f9a5f7)
+
+
+
 **Commands for route:**
 
 ```
@@ -5235,7 +5254,48 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk route
 ![Screenshot from 2024-11-26 02-35-14](https://github.com/user-attachments/assets/541f29ba-1a50-4e73-843e-b4b5b8d5c7c1)
 
 
+**For Route:**
+```
+make gui_route
+```
 
+![Screenshot from 2024-11-26 00-28-16](https://github.com/user-attachments/assets/1b54f798-6d7a-4eb1-a3cc-c4307b17dc9e)
+
+![Screenshot from 2024-11-26 00-29-06](https://github.com/user-attachments/assets/eac887f4-4313-45fa-ae96-3fef3af30cf4)
+
+
+### QoR Report:
+
+```
+make metadata
+```
+
+![Screenshot from 2024-11-26 06-54-21](https://github.com/user-attachments/assets/0321db33-1078-490c-9361-e77a13c7a749)
+
+
+### HEATMAPS: 
+
+**Placement Density:**
+
+![image](https://github.com/user-attachments/assets/a6317118-2ded-4640-baab-bd65eeed523e)
+
+**Power Density:**
+
+![image](https://github.com/user-attachments/assets/5187d255-24da-4177-8c35-d5af7a7bb184)
+
+**Routing Congestion:**
+
+![image](https://github.com/user-attachments/assets/311254ee-6ac1-4430-9d07-51cd1648e0a0)
+
+
+**Estimated Conjestion (RUDY):**
+
+![image](https://github.com/user-attachments/assets/4419631b-d713-41b9-9a78-1ca27375ef7b)
+
+
+**IR Drop:**
+
+![image](https://github.com/user-attachments/assets/da1af3e7-7313-4eb5-9783-671227512654)
 
 
 </details>
