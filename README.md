@@ -5574,7 +5574,7 @@ make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk route
 ![Screenshot from 2024-11-26 02-35-14](https://github.com/user-attachments/assets/541f29ba-1a50-4e73-843e-b4b5b8d5c7c1)
 
 
-**For Route:**
+### For Route:
 ```
 make gui_route
 ```
@@ -5584,6 +5584,7 @@ make gui_route
 ![Screenshot from 2024-11-26 00-29-06](https://github.com/user-attachments/assets/eac887f4-4313-45fa-ae96-3fef3af30cf4)
 
 
+
 ### QoR Report:
 
 ```
@@ -5591,6 +5592,7 @@ make metadata
 ```
 
 ![Screenshot from 2024-11-26 06-54-21](https://github.com/user-attachments/assets/0321db33-1078-490c-9361-e77a13c7a749)
+
 
 
 ### HEATMAPS: 
