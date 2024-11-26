@@ -5224,7 +5224,7 @@ make gui_cts
 ![5](https://github.com/user-attachments/assets/c350d424-bbec-47d2-bdce-93589dd320ec)
 
 
-**Commands for route::**
+**Commands for route:**
 
 ```
 make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk route
